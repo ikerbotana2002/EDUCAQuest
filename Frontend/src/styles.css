@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height : 100%;
+}
+
+.wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: beige;
+  height: 100%;
+}
+
+.body{
+  max-width: 300px;
+  width: 100%;
+  text-align: center;
+}
