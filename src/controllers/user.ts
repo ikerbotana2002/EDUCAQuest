@@ -6,7 +6,7 @@ import { Op } from "sequelize";
 import jwt from "jsonwebtoken";
 
 export const register = async (req: Request, res: Response): Promise<any> => {
-    const { name, lastname, password, email, credential } = req.body;
+    const { name, lastname, password, email, rol_id, credential } = req.body;
 
     const user = await User.findOne({ where: { [Op.or]: { email: email, credential: credential } } });
 
@@ -26,6 +26,7 @@ export const register = async (req: Request, res: Response): Promise<any> => {
             name: name,
             lastname: lastname,
             email: email,
+            rol_id: rol_id,
             password: passwordHash,
             credential: credential,
             status: 1,
@@ -75,14 +76,24 @@ export const login = async (req: Request, res: Response): Promise<any> => {
     }); 
     
 
-    res.json({token});
+    res.json({token, user: {
+        rol_id: user.rol_id,
+        id: user.id
+    }}); //hemos pasado tambien el rol para redireccionar luego si es profesor o alumno y el id del usuario
 };
-
+/*
 export const getUsers = async (req: Request, res: Response) => {
     const listUsers = await User.findAll();
 
     res.json({
         listUsers
     });
+    
+};*/
+export const getUsers = async (req: Request, res: Response) => {
+    const listUsers = await User.findAll();
+    res.json(listUsers); // Devuelve directamente el array sin ninguna clave extra
 };
+
+
 

@@ -6,7 +6,9 @@ const router = Router();
 
 router.post("/api/user/register", register);
 router.post("/api/user/login", login);
-router.get("/api/user/getUsers", validateToken, getUsers);
+//router.get("/api/user/getUsers", validateToken, getUsers);
+router.get("/api/user/getUsers", getUsers);
+
 
 
 export default router;

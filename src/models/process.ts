@@ -1,20 +1,23 @@
-
 import { DataTypes } from "sequelize";
 import sequelize from "../database/connection";
 
-export const Product = sequelize.define(
-    'Product',
+export const Process = sequelize.define(
+    'Process',
     {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        name: {
-            type: DataTypes.STRING,
+        id_activity: {
+            type: DataTypes.INTEGER,
             allowNull: false
         },
-        description: {
+        id_user: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        result: {
             type: DataTypes.STRING,
             allowNull: false
         },

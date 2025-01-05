@@ -1,9 +1,11 @@
 import express, { Application } from 'express';
 import sequelize from '../database/connection';
 import RUser from '../routes/user';
-import RProduct from '../routes/product';
+import RActivity from '../routes/activity';
+import RProcess from '../routes/process';
 import { User } from './user';
-import { Product } from './product';
+import { Activity } from './activity';
+import { Process } from './process';
 import cors from 'cors';
 
 class Server {
@@ -28,7 +30,8 @@ class Server {
 
     router() {
         this.app.use(RUser);
-        this.app.use(RProduct);
+        this.app.use(RActivity);
+        this.app.use(RProcess);
     }
 
     midlewares() {
@@ -40,7 +43,8 @@ class Server {
         try {
             // await sequelize.authenticate();
             await User.sync(); // Se crea la tabla en la base de datos
-            await Product.sync();
+            await Activity.sync();
+            await Process.sync();
             console.log("Conexión Exitosa");
         } catch (error) {
             console.log("Error en la conexion a la base de datos, " + error);  
