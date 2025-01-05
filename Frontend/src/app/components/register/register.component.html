@@ -22,6 +22,11 @@
                         placeholder="name@example.com">
                     <label for="floatingInput">Email address</label>
                 </div>
+                <div class="form-floating mb-2">
+                    <input type="int" class="form-control" [(ngModel)]="rol_id" id="floatingInput"
+                        placeholder="rol_id">
+                    <label for="floatingInput">Rol id (0 alumno, 1 profesor)</label>
+                </div>
                 <div class="form-floating mb-2 col">
                     <input type="password" class="form-control" [(ngModel)]="password" id="floatingPassword"
                         placeholder="Password">

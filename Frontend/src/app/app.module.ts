@@ -10,13 +10,17 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MaintenanceComponent } from './components/maintenance/maintenance.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { DashboardProfesorComponent } from './components/dashboard-profesor/dashboard-profesor.component';
+
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch } from '@angular/common/http';
 
 // animaciones del toast
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { UserComponent } from './components/dashboard/user/user.component';
+import { TokenInterceptor } from './utils/token.interceptor';
+import { ActivityComponent } from './components/dashboard/activity/activity.component';
 
 
 
@@ -30,7 +34,9 @@ import { UserComponent } from './components/dashboard/user/user.component';
     RegisterComponent,
     MaintenanceComponent,
     ErrorPageComponent,
-    UserComponent
+    UserComponent,
+    DashboardProfesorComponent,
+    ActivityComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +54,12 @@ import { UserComponent } from './components/dashboard/user/user.component';
   ],
   providers: [
     provideClientHydration(withEventReplay()),
-    provideHttpClient(withFetch())
+    provideHttpClient(withFetch()),
+    { 
+      provide: HTTP_INTERCEPTORS, 
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

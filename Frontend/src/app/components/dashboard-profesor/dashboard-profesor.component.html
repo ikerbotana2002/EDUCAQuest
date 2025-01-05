@@ -1,0 +1,10 @@
+<div *ngIf="activities.length > 0; else noActivities">
+  <ul>
+    <li *ngFor="let activity of activities">
+      <a [routerLink]="['/activity', activity.id]">{{ activity.name }} - {{ activity.description }}</a>
+    </li>
+  </ul>
+</div>
+<ng-template #noActivities>
+  <p>No hay actividades disponibles.</p>
+</ng-template>

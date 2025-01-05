@@ -27,8 +27,11 @@ export class UserService {
   }
 
   getUsers(): Observable<User[]> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<User[]>(`${this.AppUrl}${this.APIUrl}/getUsers`, {headers : headers});
+    console.log(`${this.AppUrl}${this.APIUrl}/getUsers`);
+    return this.http.get<User[]>(`${this.AppUrl}${this.APIUrl}/getUsers`);
+    //const token = localStorage.getItem('token');
+    //const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    //return this.http.get<User[]>(`${this.AppUrl}${this.APIUrl}/getUsers`, {headers : headers});
   }
+
 }

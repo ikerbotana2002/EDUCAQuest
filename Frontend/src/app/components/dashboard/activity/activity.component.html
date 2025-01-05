@@ -1,0 +1,21 @@
+<ul>
+  <ng-container *ngFor="let activity of activities">
+    <li *ngIf="activity.id == activityId">
+      <h2>{{ activity.name }}</h2>
+      <p>{{ activity.description }}</p>
+    </li>
+  </ng-container>
+</ul>
+
+<ul>
+  <li *ngFor="let user of users">
+    USUARIO : {{ user.name }} {{ user.lastname }} CON ID: {{ user.id }}
+    <ul>
+      <ng-container *ngFor="let process of processes">
+        <li *ngIf="process.id_user === user.id && +process.id_activity === +activityId">
+          Resultado de la actividad: {{ process.result }}
+        </li>
+      </ng-container>
+    </ul>
+  </li>
+</ul>

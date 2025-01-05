@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   lastname: string = '';
   credential: string = '';
   email: string = '';
+  rol_id: number = 0;
   password: string = '';
   repeatPassword: string = '';
 
@@ -38,6 +39,7 @@ export class RegisterComponent implements OnInit {
       name: this.name,
       lastname: this.lastname,
       email: this.email,
+      rol_id: this.rol_id,
       password: this.password,
       credential: this.credential
     }
