@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { User } from '../../interfaces/user';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -19,8 +20,15 @@ export class LoginComponent {
   password: string = '';
   rol_id: number = 0;
   user_id: number = 0;
+  avatar: number = 0;
+  father_id: number = 0;
 
-  constructor(private _userService: UserService, private router: Router, private toastr: ToastrService) { }
+  constructor(private authService: AuthService, private _userService: UserService, private router: Router, private toastr: ToastrService) { }
+
+  ngOnInit(): void {
+    this.authService.logout();
+    //this.toastr.success('Sesión cerrada exitosamente', 'Éxito');
+  }
 
   login() {
     if (this.email == '' || this.password == '') {
@@ -35,11 +43,20 @@ export class LoginComponent {
         const token = response.token;
         const rol_id = response.user.rol_id;
         const user_id = response.user.id;
-
+        
+        // Almacenar el token en localStorage
+        localStorage.setItem('token', token);
+        localStorage.setItem('rol_id', rol_id.toString());
+        localStorage.setItem('user_id', user_id.toString());
+ 
         this.toastr.success(`Bienvenido ${this.email}`, '');
 
         if (rol_id === 1) {
           this.router.navigate(['/dashboardProfesor']);
+        } else if (rol_id === 2) {
+          this.router.navigate(['/dashboardAdmin']);
+        } else if (rol_id === 3) {
+          this.router.navigate(['/dashboardTutor']);
         } else {
           this.router.navigate(['/dashboard']);
         }

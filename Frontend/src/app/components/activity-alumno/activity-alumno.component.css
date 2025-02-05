@@ -1,0 +1,54 @@
+.activity-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .activity-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .activity-item {
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+  }
+  
+  .activity-item:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .process-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .process-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .deadline-warning {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #ff0000; /* Rojo para advertencia */
+  }
+  
+  .deadline-normal {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #008000; /* Verde para tiempo restante */
+  }
+  
+  .no-activities-message {
+    text-align: center;
+    font-size: 1.2em;
+    color: #888;
+  }

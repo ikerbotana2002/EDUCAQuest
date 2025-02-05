@@ -1,0 +1,29 @@
+<div *ngIf="activities.length > 0; else noActivities" class="activities-container">
+    <ul class="activity-list">
+        <ng-container *ngFor="let activity of activities">
+            <li *ngIf="activity.available == 1 && activity.type == 3" class="activity-item">
+                <h2>{{ activity.name | uppercase }}</h2>
+                <p>{{ activity.description }}</p>
+
+                <mat-radio-group [(ngModel)]="activity.selectedOption">
+                    <mat-radio-button value="Bien" class="radio-with-check" style="margin-left: 50px;">
+                        <span class="check-symbol"></span>
+                    </mat-radio-button>
+                    <mat-radio-button value="Mal" class="radio-with-check" style="margin-left: 20px;">
+                        <span class="cross-symbol"></span>
+                    </mat-radio-button>
+                </mat-radio-group>
+
+                <div class="save-button-container">
+                    <button mat-raised-button color="primary"
+                        (click)="saveChanges(activity.selectedOption, activity.id)">Guardar
+                        Cambios</button>
+                </div>
+            </li>
+        </ng-container>
+    </ul>
+</div>
+
+<ng-template #noActivities>
+    <p class="no-activities-message">No hay actividades disponibles.</p>
+</ng-template>

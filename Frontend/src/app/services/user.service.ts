@@ -27,11 +27,15 @@ export class UserService {
   }
 
   getUsers(): Observable<User[]> {
-    console.log(`${this.AppUrl}${this.APIUrl}/getUsers`);
     return this.http.get<User[]>(`${this.AppUrl}${this.APIUrl}/getUsers`);
-    //const token = localStorage.getItem('token');
-    //const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    //return this.http.get<User[]>(`${this.AppUrl}${this.APIUrl}/getUsers`, {headers : headers});
   }
 
+  // Método para actualizar el rol de un usuario
+  updateRol(newRol: number, email: string): Observable<any> {
+    return this.http.patch(`${this.AppUrl}${this.APIUrl}/updateRol`, { newRol, email });
+  }
+
+  updateAvatar(archivo: string, id_user: Number): Observable<any> {
+    return this.http.patch(`${this.AppUrl}${this.APIUrl}/updateAvatar`, { archivo, id_user });
+  }
 }

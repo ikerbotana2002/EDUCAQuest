@@ -1,21 +1,41 @@
 <ul>
   <ng-container *ngFor="let activity of activities">
     <li *ngIf="activity.id == activityId">
-      <h2>{{ activity.name }}</h2>
+      <h2>{{ activity.name | uppercase }}</h2>
       <p>{{ activity.description }}</p>
     </li>
   </ng-container>
 </ul>
 
 <ul>
-  <li *ngFor="let user of users">
-    USUARIO : {{ user.name }} {{ user.lastname }} CON ID: {{ user.id }}
-    <ul>
-      <ng-container *ngFor="let process of processes">
-        <li *ngIf="process.id_user === user.id && +process.id_activity === +activityId">
-          Resultado de la actividad: {{ process.result }}
-        </li>
-      </ng-container>
-    </ul>
-  </li>
+  <ng-container *ngFor="let user of users">
+    <li *ngIf="user.rol_id == 0">
+      USUARIO : {{ user.name }} {{ user.lastname }} --- {{ user.email }}
+      <ul>
+        <ng-container *ngFor="let process of processes">
+          <li *ngIf="process.id_user === user.id && +process.id_activity === +activityId">
+            Resultado de la actividad: {{ process.result }}
+            <mat-radio-group [(ngModel)]="process.selectedOption">
+              <mat-radio-button value="Bien" class="radio-with-check" style="margin-left: 50px;">
+                <span class="check-symbol"></span>
+              </mat-radio-button>
+              <mat-radio-button value="Mal" class="radio-with-check" style="margin-left: 20px;">
+                <span class="cross-symbol"></span>
+              </mat-radio-button>
+            </mat-radio-group>
+            
+            <div class="text-container">
+              <label for="textInput">Comentario adicional:</label>
+              <input type="text" id="textInput" name="textInput" placeholder="Escribe aquí..." class="text-left" [(ngModel)]="process.additionalComment">
+            </div>
+
+            <div class="save-button-container">
+              <button mat-raised-button color="primary"
+                (click)="saveChanges(process.selectedOption, process.id_user, process.id_activity, process.additionalComment)">Guardar Cambios</button>
+            </div>
+          </li>
+        </ng-container>
+      </ul>
+    </li>
+  </ng-container>
 </ul>

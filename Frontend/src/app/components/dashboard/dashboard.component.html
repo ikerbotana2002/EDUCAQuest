@@ -1,8 +1,31 @@
-<div class="form-floating mb-2 col">
-  <input type="text" class="form-control" [(ngModel)]="result" id="floatingResultado"
-      placeholder="Resultado">
-  <label for="floatingResultado">Resultado</label>
+<div class="header">
+  <ng-container *ngFor="let user of users">
+    <li *ngIf="user.id === id_user" class="avatar-container">
+      <a [routerLink]="['/changeAvatar']">
+        <img [src]="'data:image/png;base64,' + user.avatar" alt="Imagen de {{ user.email }}" class="user-avatar">
+      </a>
+    </li>
+  </ng-container>
 </div>
-<div class="d-grid gap-2">
-  <button class="btn btn-primary" (click)="saveString()" type="button">Guardar Respuesta</button>
+
+<div *ngIf="activities.length > 0; else noActivities" class="activities-container">
+  <ul class="activity-list">
+    <ng-container *ngFor="let activity of activities">
+      <li *ngIf="activity.available === 1" class="activity-item">
+        <a [routerLink]="['/activityAlumno', activity.id]" class="activity-link">
+          <div class="activity-details">
+            <strong>{{ activity.name | uppercase }}</strong>
+            <p>{{ activity.description }}</p>
+            <p [ngClass]="{'deadline-expired': getTimeRemaining(activity.deadline).expired, 'deadline-remaining': !getTimeRemaining(activity.deadline).expired}">
+              Fecha límite: {{ getTimeRemaining(activity.deadline).text }}
+            </p>
+          </div>
+        </a>
+      </li>
+    </ng-container>
+  </ul>
 </div>
+
+<ng-template #noActivities>
+  <p class="no-activities-message">No hay actividades disponibles.</p>
+</ng-template>

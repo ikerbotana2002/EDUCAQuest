@@ -2,7 +2,8 @@ export interface User {
     name?: string;
     lastname?: string;
     email: string;
-    rol_id?: number;
     password: string;
-    credential?: string;
+    rol_id?: number;
+    avatar?: number;
+    children_id?: number;
 }

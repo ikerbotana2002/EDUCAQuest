@@ -1,0 +1,10 @@
+<div class="upload-container">
+  <h2>Cambiar Avatar</h2>
+  <form (submit)="onSubmit()">
+    <div class="form-group">
+      <label for="fileInput">Selecciona un archivo:</label>
+      <input type="file" id="fileInput" (change)="onFileSelected($event)" />
+    </div>
+    <button type="submit" class="button">Subir</button>
+  </form>
+</div>

@@ -1,0 +1,37 @@
+<div class="header">
+    <ng-container *ngFor="let user of users">
+        <li *ngIf="user.id === id_user" class="avatar-container">
+            <a [routerLink]="['/changeAvatar']">
+                <img [src]="'data:image/png;base64,' + user.avatar" alt="Imagen de {{ user.email }}" class="user-avatar">
+            </a>
+        </li>
+    </ng-container>
+</div>
+
+
+
+<div *ngIf="users.length > 0; else noUsers" class="users-container">
+    <ng-container *ngFor="let user of users">
+        <li style="margin-bottom: 20px;">
+            USUARIO: {{ user.name }} {{ user.lastname }} --- {{ user.email }}
+            <div style="margin-top: 10px;">
+                ROL ACTUAL: {{ getRolName(user.rol_id) }}
+                <div style="margin-top: 20px;">
+                    <mat-radio-group [(ngModel)]="user.selectedOption">
+                        <mat-radio-button value="0" style="margin-right: 10px;">ALUMNO</mat-radio-button>
+                        <mat-radio-button value="1" style="margin-right: 10px;">PROFESOR</mat-radio-button>
+                        <mat-radio-button value="2">ADMIN</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="save-button-container">
+                    <button mat-raised-button color="primary"
+                        (click)="saveChanges(user.email, user.selectedOption)">Guardar Cambios</button>
+                </div>
+            </div>
+        </li>
+    </ng-container>
+</div>
+
+<ng-template #noUsers>
+  <p class="no-users-message">No hay usuarios disponibles.</p>
+</ng-template>

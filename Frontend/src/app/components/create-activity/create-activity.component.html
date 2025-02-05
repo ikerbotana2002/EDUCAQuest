@@ -1,0 +1,43 @@
+<div class="wrapper">
+    <div class="body">
+        <div action="">
+            <h1 class="mb-4 mt-3">CREAR ACTIVIDAD</h1>
+            <div class="row g-1">
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" [(ngModel)]="activity.name" id="floatingName" placeholder="Name">
+                    <label for="floatingName">Nombre</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" [(ngModel)]="activity.description" id="floatingDescription"
+                        placeholder="text">
+                    <label for="floatingDescription">Descripcion</label>
+                </div>
+                <div class="form-floating mb-2 col">
+                    <input type="text" class="form-control" [(ngModel)]="activity.degree" id="floatingDegree"
+                        placeholder="number">
+                    <label for="floatingDegree">Curso</label>
+                </div>
+                <div class="form-floating mb-2 col">
+                    <input type="text" class="form-control" [(ngModel)]="activity.subject" id="floatingSubject"
+                        placeholder="text">
+                    <label for="floatingSubject">Asignatura</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <select class="form-control" [(ngModel)]="activity.type" id="floatingType">
+                        <option value="" disabled selected>Seleccione un tipo</option>
+                        <option *ngFor="let type of activityTypes" [value]="type.id">{{ type.name }}</option>
+                    </select>
+                    <label for="floatingType">Tipo de Actividad</label>
+                </div>
+                
+                <div class="form-floating mb-2">
+                    <input type="date" class="form-control" [(ngModel)]="activity.deadline" id="floatingDueDate" placeholder="Fecha Limite">
+                    <label for="floatingDueDate">Fecha Limite</label>
+                </div>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary" (click)="onSubmit()" type="button">Crear Actividad</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

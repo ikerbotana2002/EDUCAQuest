@@ -1,10 +1,45 @@
-<div *ngIf="activities.length > 0; else noActivities">
-  <ul>
-    <li *ngFor="let activity of activities">
-      <a [routerLink]="['/activity', activity.id]">{{ activity.name }} - {{ activity.description }}</a>
+<div class="header">
+  <ng-container *ngFor="let user of users">
+    <li *ngIf="user.id === id_user" class="avatar-container">
+      <a [routerLink]="['/changeAvatar']">
+        <img [src]="'data:image/png;base64,' + user.avatar" alt="Imagen de {{ user.email }}" class="user-avatar">
+      </a>
+    </li>
+  </ng-container>
+</div>
+
+<div *ngIf="activities.length > 0; else noActivities" class="activities-container">
+  <ul class="activity-list">
+    <li *ngFor="let activity of activities" class="activity-item">
+      <ng-container *ngIf="activity.available; else noLink">
+        <a [routerLink]="['/activity', activity.id]" class="activity-link">
+          <strong>{{ activity.name | uppercase }}</strong> - {{ activity.description }}
+        </a>
+        <label class="switch">
+          <input type="checkbox" (change)="onToggle($event, activity.id)" checked="{{activity.available}}">
+          <span class="slider round"></span>
+        </label>
+      </ng-container>
+      
+      <ng-template #noLink>
+        <span class="activity-text">
+          <strong>{{ activity.name | uppercase }}</strong> - {{ activity.description }}
+        </span>
+        <label class="switch">
+          <input type="checkbox" (change)="onToggle($event, activity.id)">
+          <span class="slider round"></span>
+        </label>
+      </ng-template>  
     </li>
   </ul>
 </div>
+
 <ng-template #noActivities>
-  <p>No hay actividades disponibles.</p>
+  <p class="no-activities-message">No hay actividades disponibles.</p>
 </ng-template>
+
+<div class="create-activity-container">
+  <button mat-raised-button color="primary" (click)="navigateToCreateActivity()">Crear Nueva Actividad</button>
+</div>
+
+   

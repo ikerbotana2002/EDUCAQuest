@@ -21,11 +21,16 @@ export class ProcessService {
         return this.http.post(`${this.AppUrl}${this.APIUrl}/register`, process);
     }
 
+    saveHomeActivityProcess(process: Process): Observable<any> {
+        return this.http.post(`${this.AppUrl}${this.APIUrl}/registerHomeActivityProcess`, process);
+    }
+
     getProcesses(): Observable<Process[]> {
-        console.log(`${this.AppUrl}${this.APIUrl}/getProcesses`);
         return this.http.get<Process[]>(`${this.AppUrl}${this.APIUrl}/getProcesses`);
-        //const token = localStorage.getItem('token');
-        //const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        //return this.http.get<User[]>(`${this.AppUrl}${this.APIUrl}/getUsers`, {headers : headers});
+    }
+
+    updateFeedback(feedback: string, id_user: number, id_activity: number, additionalComment: string): Observable<any> {
+        console.log(feedback, id_user, id_activity, additionalComment);
+        return this.http.patch(`${this.AppUrl}${this.APIUrl}/updateFeedback`, { feedback, id_user, id_activity, additionalComment });
     }
 }

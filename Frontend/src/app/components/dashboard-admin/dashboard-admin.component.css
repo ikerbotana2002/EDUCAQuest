@@ -7,7 +7,7 @@ body {
   padding: 0;
 }
 
-/* Header con avatar */
+/* Estilos para el header */
 .header {
   background: #1976D2;
   padding: 15px;
@@ -38,8 +38,8 @@ body {
   transform: scale(1.1);
 }
 
-/* Contenedor de actividades */
-.activities-container {
+/* Contenedor de usuarios */
+.users-container {
   max-width: 800px;
   margin: 40px auto;
   background: white;
@@ -48,56 +48,49 @@ body {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Lista de actividades */
-.activity-list {
+/* Cada usuario */
+.users-container li {
   list-style: none;
-  padding: 0;
-}
-
-/* Cada actividad */
-.activity-item {
-  background: #E3F2FD;
   padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-.activity-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Enlace de actividad */
-.activity-link {
-  text-decoration: none;
-  color: #1976D2;
-  display: block;
-}
-
-/* Detalles de la actividad */
-.activity-details {
+  border-bottom: 1px solid #ddd;
   font-size: 16px;
 }
 
-.activity-details strong {
-  font-size: 18px;
-  color: #0D47A1;
+/* Último elemento sin borde */
+.users-container li:last-child {
+  border-bottom: none;
 }
 
-/* Fecha límite */
-.deadline-expired {
-  color: #D32F2F;
+/* Estilos para el rol */
+.users-container div {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Contenedor de botones */
+.save-button-container {
+  margin-top: 15px;
+}
+
+/* Botón de guardar cambios */
+button {
+  padding: 10px 15px;
+  font-size: 14px;
   font-weight: bold;
+  border: none;
+  cursor: pointer;
+  background: #43A047;
+  color: white;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
 }
 
-.deadline-remaining {
-  color: #388E3C;
+button:hover {
+  background: #388E3C;
 }
 
-/* Mensaje cuando no hay actividades */
-.no-activities-message {
+/* Mensaje cuando no hay usuarios */
+.no-users-message {
   text-align: center;
   font-size: 18px;
   color: #757575;

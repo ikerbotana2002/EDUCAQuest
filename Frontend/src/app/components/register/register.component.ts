@@ -15,7 +15,6 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 export class RegisterComponent implements OnInit {
   name: string = '';
   lastname: string = '';
-  credential: string = '';
   email: string = '';
   rol_id: number = 0;
   password: string = '';
@@ -25,7 +24,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {}
 
   addUser(){
-    if(this.name == '' || this.lastname == '' || this.credential == '' || this.email == '' || this.password == '' || this.repeatPassword == ''){
+    if(this.name == '' || this.lastname == '' ||  this.email == '' || this.password == '' || this.repeatPassword == ''){
       this.toastr.error('Todos los campos son obligatorios', 'Error');
       return;
     }
@@ -39,9 +38,10 @@ export class RegisterComponent implements OnInit {
       name: this.name,
       lastname: this.lastname,
       email: this.email,
-      rol_id: this.rol_id,
       password: this.password,
-      credential: this.credential
+      rol_id: this.rol_id,
+      avatar: 0,
+      children_id: 0
     }
 
     // llama al metodo register del User.Service.ts pasandole el objeto user con los datos del usuario introducidos en el front

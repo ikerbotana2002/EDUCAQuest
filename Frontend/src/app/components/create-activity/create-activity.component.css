@@ -1,0 +1,80 @@
+/* Estilo para el contenedor principal */
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  .body {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .form-floating {
+    position: relative;
+  }
+  
+  .form-floating label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 1rem 0.75rem;
+    pointer-events: none;
+    border: 1px solid transparent;
+    transform-origin: 0 0;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .form-floating input,
+  .form-floating textarea {
+    height: calc(3.5rem + 2px);
+    padding: 1rem 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    outline: none;
+    transition: border-color 0.2s ease-in-out;
+  }
+  
+  .form-floating input:focus,
+  .form-floating textarea:focus {
+    border-color: #80bdff;
+  }
+  
+  .form-floating input:focus + label,
+  .form-floating textarea:focus + label,
+  .form-floating input:not(:placeholder-shown) + label,
+  .form-floating textarea:not(:placeholder-shown) + label {
+    transform: scale(0.85) translateY(-1.5rem) translateX(0.15rem);
+    color: #495057;
+  }
+  
+  .d-grid {
+    display: grid;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+  }

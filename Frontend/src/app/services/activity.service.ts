@@ -22,13 +22,12 @@ export class ActivityService {
         return this.http.post(`${this.AppUrl}api/activity/register`, activity);
     }
 
-    getActivities(): Observable<Activity[]> {
-        console.log(`${this.AppUrl}${this.APIUrl}/getActivities`);
-        return this.http.get<Activity[]>(`${this.AppUrl}${this.APIUrl}/getActivities`);
-        //const token = localStorage.getItem('token');
-        //const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        //return this.http.get<User[]>(`${this.AppUrl}${this.APIUrl}/getUsers`, {headers : headers});
+    updateActivity(activityName: string, activityAvailable: number): Observable<any> {
+        return this.http.patch(`${this.AppUrl}api/activity/update`, { activityName, activityAvailable } );
     }
 
+    getActivities(): Observable<Activity[]> {
+        return this.http.get<Activity[]>(`${this.AppUrl}${this.APIUrl}/getActivities`);
+    }
 
 }

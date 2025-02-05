@@ -11,6 +11,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { MaintenanceComponent } from './components/maintenance/maintenance.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { DashboardProfesorComponent } from './components/dashboard-profesor/dashboard-profesor.component';
+import { DashboardAdminComponent } from './components/dashboard-admin/dashboard-admin.component';
 
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch } from '@angular/common/http';
 
@@ -21,6 +22,12 @@ import { ToastrModule } from 'ngx-toastr';
 import { UserComponent } from './components/dashboard/user/user.component';
 import { TokenInterceptor } from './utils/token.interceptor';
 import { ActivityComponent } from './components/dashboard/activity/activity.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatRadioModule } from '@angular/material/radio';
+import { CreateActivityComponent } from './components/create-activity/create-activity.component';
+import { ActivityAlumnoComponent } from './components/activity-alumno/activity-alumno.component';
+import { DashboardTutorComponent } from './components/dashboard-tutor/dashboard-tutor.component';
+import { ChangeAvatarComponent } from './components/change-avatar/change-avatar.component';
 
 
 
@@ -37,6 +44,11 @@ import { ActivityComponent } from './components/dashboard/activity/activity.comp
     UserComponent,
     DashboardProfesorComponent,
     ActivityComponent,
+    DashboardAdminComponent,
+    CreateActivityComponent,
+    ActivityAlumnoComponent,
+    DashboardTutorComponent,
+    ChangeAvatarComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +56,7 @@ import { ActivityComponent } from './components/dashboard/activity/activity.comp
     FormsModule,
     CommonModule,
     BrowserAnimationsModule,
+    MatRadioModule,
     ToastrModule.forRoot(
       {
         timeOut: 10000, //duracion de la ventana del error y posicion (y que no salgan varios)
@@ -59,7 +72,8 @@ import { ActivityComponent } from './components/dashboard/activity/activity.comp
       provide: HTTP_INTERCEPTORS, 
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })
