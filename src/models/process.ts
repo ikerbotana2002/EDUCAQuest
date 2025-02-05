@@ -21,6 +21,14 @@ export const Process = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
+        feedback: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        additionalComment: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
         status: {
             type: DataTypes.INTEGER,
             allowNull: false

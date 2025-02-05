@@ -17,6 +17,26 @@ export const Activity = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
+        degree: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        subject: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        type: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        available: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        deadline: {
+            type: DataTypes.DATE,
+            allowNull: false
+        },
         status: {
             type: DataTypes.INTEGER,
             allowNull: false

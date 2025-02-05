@@ -22,18 +22,21 @@ export const User = sequelize.define(
             allowNull: false,
             unique: true
         },
-        rol_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
         password: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        credential: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true
+        rol_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        avatar: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        children_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         },
         status: {
             type: DataTypes.INTEGER,
