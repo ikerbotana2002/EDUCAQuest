@@ -34,10 +34,6 @@ export const User = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        children_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
         status: {
             type: DataTypes.INTEGER,
             allowNull: false

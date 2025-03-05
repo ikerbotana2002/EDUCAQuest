@@ -6,7 +6,7 @@ import { Op } from "sequelize";
 import jwt from "jsonwebtoken";
 
 export const register = async (req: Request, res: Response): Promise<any> => {
-    const { name, lastname, email, password, rol_id, avatar, father_id } = req.body;
+    const { name, lastname, email, password, rol_id, avatar } = req.body;
 
     const user = await User.findOne({ where: { [Op.or]: { email: email } } });
 
@@ -29,7 +29,6 @@ export const register = async (req: Request, res: Response): Promise<any> => {
             password: passwordHash,
             rol_id: rol_id,
             avatar: avatar,
-            father_id: father_id,
             status: 1,
         });
 

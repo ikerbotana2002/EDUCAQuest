@@ -17,12 +17,8 @@ export const Activity = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        degree: {
+        id_subject: {
             type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        subject: {
-            type: DataTypes.STRING,
             allowNull: false
         },
         type: {
@@ -35,6 +31,14 @@ export const Activity = sequelize.define(
         },
         deadline: {
             type: DataTypes.DATE,
+            allowNull: false
+        },
+        photo: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        num_fields: {
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         status: {
