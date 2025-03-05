@@ -1,10 +1,31 @@
-<div class="upload-container">
-  <h2>Cambiar Avatar</h2>
-  <form (submit)="onSubmit()">
-    <div class="form-group">
-      <label for="fileInput">Selecciona un archivo:</label>
-      <input type="file" id="fileInput" (change)="onFileSelected($event)" />
+<div class="header">
+    <div class="role-container">
+        <ng-container *ngFor="let user of users">
+            <span *ngIf="user.id === id_user" class="user-role">Rol: {{ getRolName(user.rol_id) }}</span>
+        </ng-container>
     </div>
-    <button type="submit" class="button">Subir</button>
-  </form>
+    <div class="avatar-container">
+        <ng-container *ngFor="let user of users">
+            <li *ngIf="user.id === id_user">
+                <span class="user-name">{{ user.name }} {{ user.lastname }}</span>
+                <a [routerLink]="['/changeAvatar']">
+                    <img [src]="'data:image/png;base64,' + user.avatar" alt="Imagen de {{ user.email }}"
+                        class="user-avatar">
+                </a>
+            </li>
+        </ng-container>
+    </div>
+</div>
+
+
+<div class="upload-container">
+    <h2>CAMBIAR AVATAR</h2>
+    <form (submit)="onSubmit()">
+        <div class="form-group">
+            <label for="fileInput" class="file-label">Selecciona un archivo:</label>
+            <input type="file" id="fileInput" (change)="onFileSelected($event)" class="file-input" />
+        </div>
+        <button type="submit" class="button">Subir</button>
+    </form>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 </div>

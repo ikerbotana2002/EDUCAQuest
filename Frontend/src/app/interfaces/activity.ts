@@ -1,8 +1,7 @@
 export interface Activity {
     name: string;
     description: string;
-    degree: number;
-    subject: string;
+    id_subject: number;
     type: number;
     available: number;
     deadline: string;

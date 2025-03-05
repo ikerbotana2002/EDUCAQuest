@@ -1,25 +1,43 @@
 <div class="header">
-  <ng-container *ngFor="let user of users">
-    <li *ngIf="user.id === id_user" class="avatar-container">
-      <a [routerLink]="['/changeAvatar']">
-        <img [src]="'data:image/png;base64,' + user.avatar" alt="Imagen de {{ user.email }}" class="user-avatar">
-      </a>
-    </li>
-  </ng-container>
+  <div class="role-container">
+    <ng-container *ngFor="let user of users">
+      <span *ngIf="user.id === id_user" class="user-role">Rol: {{ getRolName(user.rol_id) }}</span>
+    </ng-container>
+  </div>
+  <div class="avatar-container">
+    <ng-container *ngFor="let user of users">
+      <li *ngIf="user.id === id_user">
+        <span class="user-name">{{ user.name }} {{ user.lastname }}</span>
+        <a [routerLink]="['/changeAvatar']">
+          <img [src]="'data:image/png;base64,' + user.avatar" alt="Imagen de {{ user.email }}" class="user-avatar">
+        </a>
+      </li>
+    </ng-container>
+  </div>
 </div>
 
 <div *ngIf="activities.length > 0; else noActivities" class="activities-container">
   <ul class="activity-list">
     <ng-container *ngFor="let activity of activities">
-      <li *ngIf="activity.available === 1" class="activity-item">
+      <li *ngIf="activity.available === 1" class="activity-item" [ngStyle]="{'border-color': getSubjectColor(activity.id_subject)}">
         <a [routerLink]="['/activityAlumno', activity.id]" class="activity-link">
           <div class="activity-details">
-            <strong>{{ activity.name | uppercase }}</strong>
+            <strong [ngStyle]="{'color': getSubjectColor(activity.id_subject)}">{{ getSubjectNameById(activity.id_subject) }}</strong> - <strong>{{ activity.name | uppercase }}</strong>
             <p>{{ activity.description }}</p>
             <p [ngClass]="{'deadline-expired': getTimeRemaining(activity.deadline).expired, 'deadline-remaining': !getTimeRemaining(activity.deadline).expired}">
               Fecha límite: {{ getTimeRemaining(activity.deadline).text }}
             </p>
           </div>
+          <div class="expiration-date">
+            <p>FECHA DE EXPIRACIÓN: {{ formatDate(activity.deadline) }}</p>
+          </div>
+          <ng-container *ngFor="let process of processes">
+            <div *ngIf="process.id_user === id_user && process.id_activity === activity.id" class="feedback-status">
+              <div *ngIf="process.feedback; else waitingFeedback" class="feedback-status">
+                <p>CORREGIDA</p>
+              </div>
+            </div>
+          </ng-container>
         </a>
       </li>
     </ng-container>
@@ -28,4 +46,8 @@
 
 <ng-template #noActivities>
   <p class="no-activities-message">No hay actividades disponibles.</p>
+</ng-template>
+
+<ng-template #waitingFeedback>
+  <p class="waitingFeedback-message">ESPERANDO POR LA CORRECIÓN...</p>
 </ng-template>

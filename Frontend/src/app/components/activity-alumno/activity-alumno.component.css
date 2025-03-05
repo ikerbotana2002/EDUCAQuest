@@ -1,54 +1,146 @@
 .activity-container {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-  }
-  
-  .activity-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .activity-item {
-    margin-bottom: 15px;
-    padding: 15px;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    transition: background-color 0.3s;
-  }
-  
-  .activity-item:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .process-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .process-item {
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-  
-  .deadline-warning {
-    margin-top: 10px;
-    font-weight: bold;
-    color: #ff0000; /* Rojo para advertencia */
-  }
-  
-  .deadline-normal {
-    margin-top: 10px;
-    font-weight: bold;
-    color: #008000; /* Verde para tiempo restante */
-  }
-  
-  .no-activities-message {
-    text-align: center;
-    font-size: 1.2em;
-    color: #888;
-  }
+  padding: 20px;
+}
+
+.activity-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.activity-item {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 20px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+
+.activity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.activity-header h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.activity-header .subject {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.activity-body {
+  margin-bottom: 20px;
+}
+
+.activity-body p {
+  margin: 5px 0;
+}
+
+.activity-footer {
+  display: flex;
+  flex-direction: column;
+}
+
+.process-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.process-item {
+  margin-bottom: 10px;
+}
+
+.result-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.result-container .form-floating {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.deadline-warning {
+  color: #D32F2F;
+  font-weight: bold;
+}
+
+.deadline-normal {
+  color: #388E3C;
+}
+
+.no-activities-message {
+  text-align: center;
+  font-size: 18px;
+  color: #757575;
+  margin-top: 20px;
+}
+
+/* Header con avatar */
+.header {
+  background: #1976D2;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid #1565C0;
+  position: relative;
+}
+
+/* Contenedor del rol */
+.role-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+}
+
+/* Contenedor del avatar */
+.avatar-container {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* Alinea a la derecha */
+}
+
+li {
+  list-style: none;
+}
+
+/* Imagen del avatar */
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  transition: transform 0.3s ease-in-out;
+}
+
+.user-avatar:hover {
+  transform: scale(1.1);
+}
+
+.user-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 13px; /* Añade un margen derecho al avatar */
+  color: white;
+}
+
+.user-role {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.942);
+  background: #1565C0;
+  color: white;
+}

@@ -1,10 +1,30 @@
+<div class="header">
+    <div class="role-container">
+        <ng-container *ngFor="let user of users">
+            <span *ngIf="user.id === id_user" class="user-role">Rol: {{ getRolName(user.rol_id) }}</span>
+        </ng-container>
+    </div>
+    <div class="avatar-container">
+        <ng-container *ngFor="let user of users">
+            <li *ngIf="user.id === id_user">
+                <span class="user-name">{{ user.name }} {{ user.lastname }}</span>
+                <a [routerLink]="['/changeAvatar']">
+                    <img [src]="'data:image/png;base64,' + user.avatar" alt="Imagen de {{ user.email }}"
+                        class="user-avatar">
+                </a>
+            </li>
+        </ng-container>
+    </div>
+</div>
+
 <div class="wrapper">
     <div class="body">
         <div action="">
             <h1 class="mb-4 mt-3">CREAR ACTIVIDAD</h1>
             <div class="row g-1">
                 <div class="form-floating mb-2">
-                    <input type="text" class="form-control" [(ngModel)]="activity.name" id="floatingName" placeholder="Name">
+                    <input type="text" class="form-control" [(ngModel)]="activity.name" id="floatingName"
+                        placeholder="Name">
                     <label for="floatingName">Nombre</label>
                 </div>
                 <div class="form-floating mb-2">
@@ -12,15 +32,13 @@
                         placeholder="text">
                     <label for="floatingDescription">Descripcion</label>
                 </div>
-                <div class="form-floating mb-2 col">
-                    <input type="text" class="form-control" [(ngModel)]="activity.degree" id="floatingDegree"
-                        placeholder="number">
-                    <label for="floatingDegree">Curso</label>
-                </div>
-                <div class="form-floating mb-2 col">
-                    <input type="text" class="form-control" [(ngModel)]="activity.subject" id="floatingSubject"
-                        placeholder="text">
-                    <label for="floatingSubject">Asignatura</label>
+                <div class="form-floating mb-2">
+                    <select class="form-control" [(ngModel)]="activity.id_subject" id="floatingType">
+                        <option value="" disabled selected>Seleccione un tipo</option>
+                        <option *ngFor="let subject of subjects" [value]="subject.id">{{ subject.name }} {{
+                            subject.degree }}</option>
+                    </select>
+                    <label for="floatingType">Asignatura</label>
                 </div>
                 <div class="form-floating mb-2">
                     <select class="form-control" [(ngModel)]="activity.type" id="floatingType">
@@ -29,9 +47,10 @@
                     </select>
                     <label for="floatingType">Tipo de Actividad</label>
                 </div>
-                
+
                 <div class="form-floating mb-2">
-                    <input type="date" class="form-control" [(ngModel)]="activity.deadline" id="floatingDueDate" placeholder="Fecha Limite">
+                    <input type="date" class="form-control" [(ngModel)]="activity.deadline" id="floatingDueDate"
+                        placeholder="Fecha Limite">
                     <label for="floatingDueDate">Fecha Limite</label>
                 </div>
                 <div class="d-grid gap-2">

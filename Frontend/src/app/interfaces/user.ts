@@ -5,5 +5,4 @@ export interface User {
     password: string;
     rol_id?: number;
     avatar?: number;
-    children_id?: number;
 }

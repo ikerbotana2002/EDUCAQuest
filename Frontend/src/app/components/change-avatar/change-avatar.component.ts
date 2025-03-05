@@ -16,6 +16,8 @@ export class ChangeAvatarComponent {
   id_user: number = 0;
   base64String: string | null = null; // Nueva variable para la imagen en Base64
   selectedFileBase64: string | null = null; // Nueva variable para la imagen en Base64
+  
+  users: any[] = [];
 
   constructor(
     private http: HttpClient,
@@ -29,6 +31,10 @@ export class ChangeAvatarComponent {
     if (userIdString) {
       this.id_user = parseInt(userIdString, 10);
     }
+
+    this._userService.getUsers().subscribe((data) => {
+      this.users = data;
+    });
   }
 
   onFileSelected(event: Event): void {
@@ -71,6 +77,21 @@ export class ChangeAvatarComponent {
       });
     } else {
       this.toastr.error('No has seleccionado un archivo válido');
+    }
+  }
+
+  getRolName(rolId: number): string {
+    switch (rolId) {
+      case 0:
+        return 'Alumno';
+      case 1:
+        return 'Profesor';
+      case 2:
+        return 'Admin';
+      case 3:
+        return 'Padre';
+      default:
+        return 'DESCONOCIDO';
     }
   }
 }

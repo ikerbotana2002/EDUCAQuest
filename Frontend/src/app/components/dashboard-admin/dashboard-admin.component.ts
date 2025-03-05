@@ -33,15 +33,15 @@ export class DashboardAdminComponent implements OnInit {
   getRolName(rolId: number): string {
     switch (rolId) {
       case 0:
-        return 'ALUMNO';
+        return 'Alumno';
       case 1:
-        return 'PROFESOR';
+        return 'Profesor';
       case 2:
-        return 'ADMIN';
+        return 'Admin';
       case 3:
-        return 'PADRE';
+        return 'Padre';
       default:
-        return 'DESCONOCIDO';
+        return 'Desconocido';
     }
   }
 

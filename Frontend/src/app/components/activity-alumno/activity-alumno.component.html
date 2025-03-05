@@ -1,38 +1,65 @@
+<div class="header">
+  <div class="role-container">
+    <ng-container *ngFor="let user of users">
+      <span *ngIf="user.id === id_user" class="user-role">Rol: {{ getRolName(user.rol_id) }}</span>
+    </ng-container>
+  </div>
+  <div class="avatar-container">
+    <ng-container *ngFor="let user of users">
+      <li *ngIf="user.id === id_user">
+        <span class="user-name">{{ user.name }} {{ user.lastname }}</span>
+        <a [routerLink]="['/changeAvatar']">
+          <img [src]="'data:image/png;base64,' + user.avatar" alt="Imagen de {{ user.email }}" class="user-avatar">
+        </a>
+      </li>
+    </ng-container>
+  </div>
+</div>
+
+
+
 <div class="activity-container" *ngIf="activities.length > 0; else noActivities">
-    <ul class="activity-list">
-      <ng-container *ngFor="let activity of activities">
-        <li *ngIf="activity.id == activityId" class="activity-item">
-          <h2>{{ activity.name | uppercase }}</h2>
-          <p>DESCRIPCIÓN: {{ activity.description }}</p>
-          <p>CURSO: {{ activity.degree }}</p>
-          <p>ASIGNATURA: {{ activity.subject }}</p>
-          <p [ngClass]="{'deadline-warning': getTimeRemaining(activity.deadline).warning, 'deadline-normal': !getTimeRemaining(activity.deadline).warning}">
-            Fecha límite: {{ getTimeRemaining(activity.deadline).text }}
+  <ul class="activity-list">
+    <ng-container *ngFor="let activity of activities">
+      <li *ngIf="activity.id == activityId" class="activity-item">
+        <div class="activity-header">
+          <h2>{{ activity.name | uppercase }} - {{ activity.description }}</h2>
+          <p class="subject" [ngStyle]="{'color': getSubjectColor(activity.id_subject)}">{{ subjects[activity.id_subject]?.name }}</p>
+        </div>
+        <img *ngIf="activity.photo" [src]="'data:image/png;base64,' + activity.photo" alt="Imagen de {{ activity.name }}" class="activity-photo">
+        <div class="activity-body">
+          <p><strong>Curso:</strong> {{ subjects[activity.id_subject]?.degree }}</p>
+          <p [ngClass]="{'deadline-warning': getTimeRemaining(activity.deadline, activity.id).warning, 'deadline-normal': !getTimeRemaining(activity.deadline, activity.id).warning}">
+            {{ getTimeRemaining(activity.deadline, activity.id).text }}
           </p>
-  
-          <!-- Filtramos los procesos relacionados con la actividad actual -->
+        </div>
+        <div class="activity-footer">
           <ul class="process-list">
             <ng-container *ngFor="let process of processes">
               <li *ngIf="process.id_activity === activity.id && process.id_user === id_user" class="process-item">
                 <p><strong>Corrección de la actividad:</strong> {{ process.feedback }}</p>
                 <p><strong>Comentario:</strong> {{ process.additionalComment }}</p>
+                <p><strong>Tu respuesta:</strong> {{ process.result }}</p>
               </li>
             </ng-container>
           </ul>
-        </li>
-      </ng-container>
-    </ul>
-  </div>
-  
-  <ng-template #noActivities>
-    <p class="no-activities-message">No hay actividades disponibles.</p>
-  </ng-template>
-  
-  <div class="form-floating mb-2 col">
-    <input type="text" class="form-control" [(ngModel)]="result" id="floatingResultado" placeholder="Resultado">
-    <label for="floatingResultado">Resultado</label>
-  </div>
-  
-  <button class="btn btn-secondary" (click)="saveString()" type="button">
-    Guardar Respuesta
-  </button>
+          <div class="result-container">
+            <ng-container *ngFor="let i of [].constructor(activity.num_fields); let index = index">
+              <div class="form-floating mb-2 col">
+                <input type="text" class="form-control" [(ngModel)]="result[index]" id="floatingResultado{{index}}" placeholder="Resultado" [disabled]="getTimeRemaining(activity.deadline, activity.id).expired">
+                <label for="floatingResultado{{index}}">Resultado {{ getLetterFromIndex(index) }} </label>
+              </div>
+            </ng-container>
+            <button class="btn btn-secondary" (click)="saveString()" type="button" [disabled]="getTimeRemaining(activity.deadline, activity.id).expired">
+              Guardar Respuesta
+            </button>
+          </div>
+        </div>
+      </li>
+    </ng-container>
+  </ul>
+</div>
+
+<ng-template #noActivities>
+  <p class="no-activities-message">No hay actividades disponibles.</p>
+</ng-template>

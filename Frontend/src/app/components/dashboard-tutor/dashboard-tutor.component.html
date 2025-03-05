@@ -1,29 +1,57 @@
-<div *ngIf="activities.length > 0; else noActivities" class="activities-container">
-    <ul class="activity-list">
-        <ng-container *ngFor="let activity of activities">
-            <li *ngIf="activity.available == 1 && activity.type == 3" class="activity-item">
-                <h2>{{ activity.name | uppercase }}</h2>
-                <p>{{ activity.description }}</p>
-
-                <mat-radio-group [(ngModel)]="activity.selectedOption">
-                    <mat-radio-button value="Bien" class="radio-with-check" style="margin-left: 50px;">
-                        <span class="check-symbol"></span>
-                    </mat-radio-button>
-                    <mat-radio-button value="Mal" class="radio-with-check" style="margin-left: 20px;">
-                        <span class="cross-symbol"></span>
-                    </mat-radio-button>
-                </mat-radio-group>
-
-                <div class="save-button-container">
-                    <button mat-raised-button color="primary"
-                        (click)="saveChanges(activity.selectedOption, activity.id)">Guardar
-                        Cambios</button>
-                </div>
-            </li>
-        </ng-container>
-    </ul>
+<div class="header">
+  <div class="role-container">
+    <ng-container *ngFor="let user of users">
+      <span *ngIf="user.id === id_user" class="user-role">Rol: {{ getRolName(user.rol_id) }}</span>
+    </ng-container>
+  </div>
+  <div class="avatar-container">
+    <ng-container *ngFor="let user of users">
+      <li *ngIf="user.id === id_user">
+        <span class="user-name">{{ user.name }} {{ user.lastname }}</span>
+        <a [routerLink]="['/changeAvatar']">
+          <img [src]="'data:image/png;base64,' + user.avatar" alt="Imagen de {{ user.email }}" class="user-avatar">
+        </a>
+      </li>
+    </ng-container>
+  </div>
 </div>
 
+<div *ngIf="children.length > 0; else noChildren" class="children-container">
+  <ng-container *ngFor="let child of children">
+    <div *ngIf="child.id_father === id_user" class="child-item">
+      <h2>Actividades de {{ getUserNameById(child.id_child) }}</h2>
+      <div *ngIf="activities.length > 0; else noActivities" class="activities-container">
+        <ng-container *ngFor="let activity of activities">
+          <div *ngIf="activity.available == 1 && activity.type == 3" class="activity-item">
+            <h3>{{ activity.name | uppercase }}</h3>
+            <p>{{ activity.description }}</p>
+
+            <mat-radio-group [(ngModel)]="activity.selectedOptions[child.id_child]">
+              <mat-radio-button value="Bien" class="radio-with-check" style="margin-left: 50px;">
+                <span class="check-symbol"></span>
+              </mat-radio-button>
+              <mat-radio-button value="Mal" class="radio-with-check" style="margin-left: 20px;">
+                <span class="cross-symbol"></span>
+              </mat-radio-button>
+            </mat-radio-group>
+
+            <div class="save-button-container">
+              <button mat-raised-button color="primary"
+                (click)="saveChanges(activity.selectedOptions[child.id_child], activity.id, child.id_child)">
+                Guardar Cambios
+              </button>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #noChildren>
+  <p class="no-children-message">No se encontraron hijos.</p>
+</ng-template>
+
 <ng-template #noActivities>
-    <p class="no-activities-message">No hay actividades disponibles.</p>
+  <p class="no-activities-message">No hay actividades disponibles.</p>
 </ng-template>

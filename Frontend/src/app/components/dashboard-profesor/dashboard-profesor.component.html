@@ -1,11 +1,19 @@
 <div class="header">
-  <ng-container *ngFor="let user of users">
-    <li *ngIf="user.id === id_user" class="avatar-container">
-      <a [routerLink]="['/changeAvatar']">
-        <img [src]="'data:image/png;base64,' + user.avatar" alt="Imagen de {{ user.email }}" class="user-avatar">
-      </a>
-    </li>
-  </ng-container>
+  <div class="role-container">
+    <ng-container *ngFor="let user of users">
+      <span *ngIf="user.id === id_user" class="user-role">Rol: {{ getRolName(user.rol_id) }}</span>
+    </ng-container>
+  </div>
+  <div class="avatar-container">
+    <ng-container *ngFor="let user of users">
+      <li *ngIf="user.id === id_user">
+        <span class="user-name">{{ user.name }} {{ user.lastname }}</span>
+        <a [routerLink]="['/changeAvatar']">
+          <img [src]="'data:image/png;base64,' + user.avatar" alt="Imagen de {{ user.email }}" class="user-avatar">
+        </a>
+      </li>
+    </ng-container>
+  </div>
 </div>
 
 <div *ngIf="activities.length > 0; else noActivities" class="activities-container">
@@ -13,17 +21,17 @@
     <li *ngFor="let activity of activities" class="activity-item">
       <ng-container *ngIf="activity.available; else noLink">
         <a [routerLink]="['/activity', activity.id]" class="activity-link">
-          <strong>{{ activity.name | uppercase }}</strong> - {{ activity.description }}
+          <strong [ngStyle]="{'color': getSubjectColor(activity.id_subject)}">{{ getSubjectNameById(activity.id_subject) }}</strong> - <strong>{{ activity.name | uppercase }}</strong> - {{ activity.description }}
         </a>
         <label class="switch">
-          <input type="checkbox" (change)="onToggle($event, activity.id)" checked="{{activity.available}}">
+          <input type="checkbox" (change)="onToggle($event, activity.id)" [checked]="activity.available">
           <span class="slider round"></span>
         </label>
       </ng-container>
       
       <ng-template #noLink>
         <span class="activity-text">
-          <strong>{{ activity.name | uppercase }}</strong> - {{ activity.description }}
+          <strong [ngStyle]="{'color': getSubjectColor(activity.id_subject)}">{{ getSubjectNameById(activity.id_subject) }}</strong> - <strong>{{ activity.name | uppercase }}</strong> - {{ activity.description }}
         </span>
         <label class="switch">
           <input type="checkbox" (change)="onToggle($event, activity.id)">
@@ -41,5 +49,3 @@
 <div class="create-activity-container">
   <button mat-raised-button color="primary" (click)="navigateToCreateActivity()">Crear Nueva Actividad</button>
 </div>
-
-   

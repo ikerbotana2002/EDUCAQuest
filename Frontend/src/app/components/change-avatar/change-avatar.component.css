@@ -1,0 +1,108 @@
+/* Header con avatar */
+.header {
+  background: #1976D2;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid #1565C0;
+  position: relative;
+}
+
+/* Contenedor del rol */
+.role-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+}
+
+/* Contenedor del avatar */
+.avatar-container {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* Alinea a la derecha */
+}
+
+li {
+  list-style: none;
+}
+
+/* Imagen del avatar */
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  transition: transform 0.3s ease-in-out;
+}
+
+.user-avatar:hover {
+  transform: scale(1.1);
+}
+
+.user-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 13px; /* Añade un margen derecho al avatar */
+  color: white;
+}
+
+.user-role {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.942);
+  background: #1565C0;
+  color: white;
+}
+
+/* Contenedor de subida */
+.upload-container {
+  max-width: 600px;
+  margin: 50px auto; /* Centra el contenedor horizontalmente */
+  padding: 40px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Centra el texto dentro del contenedor */
+}
+
+/* Estilos del formulario */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.file-label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.file-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.button {
+  padding: 10px 20px;
+  background: #1976D2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.button:hover {
+  background: #1565C0;
+}
+
+.error-message {
+  color: red;
+  margin-top: 20px;
+}

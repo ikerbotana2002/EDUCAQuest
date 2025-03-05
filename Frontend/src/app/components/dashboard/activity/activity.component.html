@@ -1,20 +1,36 @@
-<ul>
+<div class="header">
+  <div class="role-container">
+    <ng-container *ngFor="let user of users">
+      <span *ngIf="user.id === id_user" class="user-role">Rol: {{ getRolName(user.rol_id) }}</span>
+    </ng-container>
+  </div>
+  <div class="avatar-container">
+    <ng-container *ngFor="let user of users">
+      <li *ngIf="user.id === id_user">
+        <span class="user-name">{{ user.name }} {{ user.lastname }}</span>
+        <a [routerLink]="['/changeAvatar']">
+          <img [src]="'data:image/png;base64,' + user.avatar" alt="Imagen de {{ user.email }}" class="user-avatar">
+        </a>
+      </li>
+    </ng-container>
+  </div>
+</div>
+
+<div class="users-container">
   <ng-container *ngFor="let activity of activities">
-    <li *ngIf="activity.id == activityId">
+    <div *ngIf="activity.id == activityId" class="activity-item">
       <h2>{{ activity.name | uppercase }}</h2>
       <p>{{ activity.description }}</p>
-    </li>
+      <img *ngIf="activity.photo" [src]="'data:image/png;base64,' + activity.photo" alt="Imagen de {{ activity.name }}" class="activity-photo">
+    </div>
   </ng-container>
-</ul>
-
-<ul>
   <ng-container *ngFor="let user of users">
-    <li *ngIf="user.rol_id == 0">
-      USUARIO : {{ user.name }} {{ user.lastname }} --- {{ user.email }}
-      <ul>
+    <div *ngIf="user.rol_id == 0" class="user-item">
+      <p>USUARIO : {{ user.name }} {{ user.lastname }} --- {{ user.email }}</p>
+      <div class="processes-container">
         <ng-container *ngFor="let process of processes">
-          <li *ngIf="process.id_user === user.id && +process.id_activity === +activityId">
-            Resultado de la actividad: {{ process.result }}
+          <div *ngIf="process.id_user === user.id && +process.id_activity === +activityId" class="process-item">
+            <p>Resultado de la actividad: {{ process.result }}</p>
             <mat-radio-group [(ngModel)]="process.selectedOption">
               <mat-radio-button value="Bien" class="radio-with-check" style="margin-left: 50px;">
                 <span class="check-symbol"></span>
@@ -33,9 +49,9 @@
               <button mat-raised-button color="primary"
                 (click)="saveChanges(process.selectedOption, process.id_user, process.id_activity, process.additionalComment)">Guardar Cambios</button>
             </div>
-          </li>
+          </div>
         </ng-container>
-      </ul>
-    </li>
+      </div>
+    </div>
   </ng-container>
-</ul>
+</div>

@@ -12,17 +12,29 @@ body {
   background: #1976D2;
   padding: 15px;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
   border-bottom: 3px solid #1565C0;
+  position: relative;
+}
+
+/* Contenedor del rol */
+.role-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
 }
 
 /* Contenedor del avatar */
 .avatar-container {
-  list-style: none;
   display: flex;
   align-items: center;
-  margin-right: 20px;
+  margin-left: auto; /* Alinea a la derecha */
+}
+
+li {
+  list-style: none;
 }
 
 /* Imagen del avatar */
@@ -36,6 +48,24 @@ body {
 
 .user-avatar:hover {
   transform: scale(1.1);
+}
+
+.user-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 13px; /* Añade un margen derecho al avatar */
+  color: white;
+}
+
+.user-role {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.942);
+  background: #1565C0;
+  color: white;
 }
 
 /* Contenedor de actividades */
@@ -75,7 +105,7 @@ body {
 /* Enlace de actividad */
 .activity-link {
   text-decoration: none;
-  color: #1976D2;
+  color: #000000;
   font-weight: bold;
 }
 
@@ -162,4 +192,11 @@ input:checked + .slider:before {
   font-size: 18px;
   color: #757575;
   margin-top: 20px;
+}
+
+.user-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 13px; /* Añade un margen derecho al avatar */
+  color: white;
 }

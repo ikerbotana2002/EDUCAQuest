@@ -27,6 +27,8 @@ export class ActivityComponent {
 
   selectedOption: string = 'Bien';
 
+  id_user: number = 0;
+  
   constructor(private activityService: ActivityService, private userService: UserService, private activatedRoute: ActivatedRoute, private processService: ProcessService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
@@ -42,7 +44,10 @@ export class ActivityComponent {
       this.processes = data;
     });
 
-
+    const userIdString = localStorage.getItem('user_id');
+    if (userIdString) {
+      this.id_user = parseInt(userIdString, 10); // Asigna el id del usuario actual
+    }
 
     this.actualRoute = this.activatedRoute.snapshot.url.map(segment => segment.path).join('/');
     this.activityId = this.actualRoute.split('/').pop(); // para obtener el id de la actividad (extraido de la ruta)
@@ -65,4 +70,18 @@ export class ActivityComponent {
     });
   }
 
+  getRolName(rolId: number): string {
+    switch (rolId) {
+      case 0:
+        return 'Alumno';
+      case 1:
+        return 'Profesor';
+      case 2:
+        return 'Admin';
+      case 3:
+        return 'Padre';
+      default:
+        return 'DESCONOCIDO';
+    }
+  }
 }

@@ -41,7 +41,6 @@ export class RegisterComponent implements OnInit {
       password: this.password,
       rol_id: this.rol_id,
       avatar: 0,
-      children_id: 0
     }
 
     // llama al metodo register del User.Service.ts pasandole el objeto user con los datos del usuario introducidos en el front
