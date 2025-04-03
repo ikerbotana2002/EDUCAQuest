@@ -35,8 +35,9 @@ export class ActivityAlumnoComponent {
   //result: string = '';
   result: string[] = [];
 
-  constructor(private subjectService: SubjectService, private _activityService: ActivityService, private toastr: ToastrService, private router: Router, private _userService: UserService, private _processService: ProcessService, private activatedRoute: ActivatedRoute) { }
+  constructor(private subjectService: SubjectService, private _activityService: ActivityService, private toastr: ToastrService, private router: Router, private _userService: UserService, private _processService: ProcessService, private activatedRoute: ActivatedRoute) {}
 
+  
   ngOnInit(): void {
 
     const userIdString = localStorage.getItem('user_id');
@@ -65,37 +66,6 @@ export class ActivityAlumnoComponent {
 
     console.log(this.activities);
   }
-
-  /*
-    saveString(): void {
-      if (!this.result || this.result.trim() === '') {
-        this.toastr.error('El resultado no puede estar vacío', 'Error');
-        return;
-      }
-  
-      const process: Process = {
-        id_activity: this.activityId,
-        id_user: this.id_user,
-        result: this.result,
-        feedback: '',
-        additionalComment: '',
-      }
-  
-      this._processService.saveProcess(process).subscribe({
-        next: (v) => {
-          this.toastr.success(`Actividad completada, esperando corrección...`, '');
-          this.router.navigate(['/login']);
-        },
-        error: (e: HttpErrorResponse) => {
-          if (e.error.message) {
-            this.toastr.error(e.error.message, '');
-          } else {
-            this.toastr.error('Ya respondiste a esta actividad', '');
-          }
-        }
-      });
-    }
-  */
 
   saveString(): void {
     if (!this.result || this.result.length === 0 || this.result.some(r => r.trim() === '')) {
@@ -182,8 +152,9 @@ export class ActivityAlumnoComponent {
     }
   }
 
-  getRolName(rolId: number): string {
-    switch (rolId) {
+  getRolName(): string {
+    const rol_id = this.users.find(user => user.id === this.id_user)?.rol_id;
+    switch (rol_id) {
       case 0:
         return 'Alumno';
       case 1:
@@ -197,6 +168,14 @@ export class ActivityAlumnoComponent {
     }
   }
 
+  getUserName(): string | undefined {
+    return this.users.find(user => user.id === this.id_user)?.name + ' ' + this.users.find(user => user.id === this.id_user)?.lastname;
+  }
+
+  getAvatar(): string | undefined {
+    return this.users.find(user => user.id === this.id_user)?.avatar;
+  } 
+
   getLetterFromIndex(index: number): string {
     const alphabet = 'abcdefghijklmnopqrstuvwxyz';
     // Si tienes más de 26 campos, puedes añadir lógica para seguir con AA, AB, etc.
@@ -207,5 +186,9 @@ export class ActivityAlumnoComponent {
       const secondLetter = alphabet.charAt(index % 26);
       return firstLetter + secondLetter;
     }
+  }
+
+  goBack(): void {
+    window.history.back(); // Navega a la página anterior
   }
 }

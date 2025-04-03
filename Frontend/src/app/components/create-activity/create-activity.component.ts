@@ -21,13 +21,20 @@ export class CreateActivityComponent {
     id_subject: 0,
     available: 1, //inicialmente no disponible al ser creada
     type: 0,
-    deadline: ''
+    deadline: '',
+    photo: '',
+    num_fields: 1
   };
 
   activityTypes: any[] = [];
   subjects: any[] = [];
   id_user: number = 0;
   users: any[] = [];
+
+  selectedFile: File | null = null;
+  errorMessage: string | null = null;
+  base64String: string | null = null; // Nueva variable para la imagen en Base64
+  selectedFileBase64: string | null = null; // Nueva variable para la imagen en Base64
 
   constructor(
     private activityService: ActivityService,
@@ -76,8 +83,9 @@ export class CreateActivityComponent {
     });
   }
 
-  getRolName(rolId: number): string {
-    switch (rolId) {
+  getRolName(): string {
+    const rol_id = this.users.find(user => user.id === this.id_user)?.rol_id;
+    switch (rol_id) {
       case 0:
         return 'Alumno';
       case 1:
@@ -88,6 +96,42 @@ export class CreateActivityComponent {
         return 'Padre';
       default:
         return 'DESCONOCIDO';
+    }
+  }
+
+  getUserName(): string | undefined {
+    return this.users.find(user => user.id === this.id_user)?.name + ' ' + this.users.find(user => user.id === this.id_user)?.lastname;
+  }
+
+  getAvatar(): string | undefined {
+    return this.users.find(user => user.id === this.id_user)?.avatar;
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+
+      if (file.size <= 100 * 1024) { // 100 KB límite
+        this.errorMessage = null;
+        this.selectedFile = file;
+
+        // Convertir imagen a Base64
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          this.base64String = reader.result as string;
+          // Eliminar el prefijo "data:image/png;base64," o similar
+          const cleanBase64 = this.base64String.split(',')[1];
+
+          //this.selectedFileBase64 = cleanBase64;
+          this.activity.photo = cleanBase64;
+        };
+      } else {
+        this.selectedFile = null;
+        this.selectedFileBase64 = null;
+        this.errorMessage = 'El archivo debe ser de 100 KB o menos.';
+      }
     }
   }
 }

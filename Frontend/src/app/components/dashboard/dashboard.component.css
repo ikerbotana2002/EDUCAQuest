@@ -5,36 +5,52 @@ body {
   color: #ffffff;
   margin: 0;
   padding: 0;
+  overflow-x: hidden; /* Evita el scroll horizontal */
+
 }
 
-/* Header con avatar */
+.background-image {
+  display: flex;
+  justify-content: center;     /* Centrar horizontalmente */
+  width: 100vw;                /* Ancho completo del contenedor */
+  overflow-x: hidden;          /* Sin scroll horizontal */
+  overflow-y: auto;            /* Scroll vertical si es necesario */
+  background-color: #ffffff;
+}
+
+.background-image img {
+  width: 70%;                  /* Ocupa el 80% del ancho */
+  height: auto;                /* Altura automática */
+  display: block;              /* Eliminar espacio extra debajo */
+}
+
 .header {
-  background: #1976D2;
+  overflow: hidden;
+  background: #273644;
   padding: 15px;
   display: flex;
   align-items: center;
-  border-bottom: 3px solid #1565C0;
+  border-bottom: 3px solid #273644;
   position: relative;
+  justify-content: center; /* Centra horizontalmente los elementos */
 }
 
-/* Contenedor del rol */
-.role-container {
+.user-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
+  top: 15px;
+  right: 80px; 
 }
 
-/* Contenedor del avatar */
-.avatar-container {
-  display: flex;
-  align-items: center;
-  margin-left: auto; /* Alinea a la derecha */
-}
-
-li {
-  list-style: none;
+.user-role {
+  font-size: 13px;
+  color: white;
+  position: absolute;
+  top: 45px;
+  right: 80px;
+  text-transform: uppercase;
 }
 
 /* Imagen del avatar */
@@ -44,29 +60,34 @@ li {
   border-radius: 50%;
   border: 2px solid #fff;
   transition: transform 0.3s ease-in-out;
+  position: absolute;
+  top: 15px;
+  right: 10px; 
 }
 
 .user-avatar:hover {
   transform: scale(1.1);
 }
 
-.user-name {
-  font-size: 20px;
-  font-weight: bold;
-  margin-right: 13px; /* Añade un margen derecho al avatar */
-  color: white;
+.logo-photo {
+  width: 100px;
+  height: 50px;
+  transition: transform 0.3s ease-in-out;    
 }
 
-.user-role {
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  padding: 10px 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.942);
-  background: #1565C0;
-  color: white;
+.logo-photo:hover {
+  transform: scale(1.1);
 }
+
+
+.subject-photo{
+  width: 30px;
+  height: 30px;
+}
+
+
+
+
 
 /* Contenedor de actividades */
 .activities-container {
@@ -86,26 +107,119 @@ li {
 
 /* Cada actividad */
 .activity-item {
-  border: 6px solid; /* Añade un borde de 2px */
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  width: 60px;                /* Ancho fijo */
+  height: 60px;               /* Alto fijo (igual al ancho) */
+  border: 6px solid;           /* Borde */
+  padding: 15px;               /* Espaciado interno */
+  margin-bottom: 15px;         /* Espaciado inferior */
+  border-radius: 50%;         /* Hace que sea redondo */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  display: flex;              /* Para centrar contenido */
+  align-items: center;        /* Centra verticalmente */
+  justify-content: center;    /* Centra horizontalmente */
+  position: relative;
+  z-index: 1;
 }
 
-.activity-item:hover {
-  transform: translateY(-3px);
+.activity-list .activity-item:hover {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.6); /* Aumenta el tamaño */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 2;
 }
+
+.activity-item-not-available {
+  width: 60px;                /* Ancho fijo */
+  height: 60px;               /* Alto fijo (igual al ancho) */
+  border: 6px solid;           /* Borde */
+  padding: 15px;               /* Espaciado interno */
+  margin-bottom: 15px;         /* Espaciado inferior */
+  border-radius: 50%;         /* Hace que sea redondo */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  display: flex;              /* Para centrar contenido */
+  align-items: center;        /* Centra verticalmente */
+  justify-content: center;    /* Centra horizontalmente */
+  font-size: 9px;
+}
+
+.hover-text {
+  display: none;
+  position: absolute;
+  top: 100%; /* Debajo del elemento */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #000000;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+
+.activity-item:hover .hover-text {
+  display: block;
+}
+
+.pending-activities {
+  position: absolute; /* Lo coloca sobre la imagen */
+  top: 100px; /* Ajusta la posición vertical */
+  left: 60px; /* Ajusta la posición horizontal */
+  background: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para mejor visibilidad */
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  width: 360px; /* Ajusta el ancho */
+  max-height: 300px; /* Limita la altura */
+  overflow-y: auto; /* Agrega scroll si hay muchas actividades */
+}
+
+.legend {
+  position: absolute; /* Lo coloca sobre la imagen */
+  top: 400px; /* Ajusta la posición vertical */
+  left: 60px; /* Ajusta la posición horizontal */
+  background: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para mejor visibilidad */
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  width: 360px; /* Ajusta el ancho */
+  max-height: 300px; /* Limita la altura */
+  overflow-y: auto; /* Agrega scroll si hay muchas actividades */
+}
+
+.legend-list {
+  list-style: none; /* Elimina los puntos de la lista */
+  padding: 0;
+  margin: 0;
+}
+
+.legend-item {
+  display: flex; /* Activa Flexbox para alinear los elementos horizontalmente */
+  align-items: center; /* Centra verticalmente la imagen y el texto */
+  margin-bottom: 10px; /* Espaciado entre los elementos de la lista */
+}
+
 
 /* Enlace de actividad */
 .activity-link {
   text-decoration: none;
   color: #000000;
   font-size: 14px;
-  display: block;
-  
+  display: block; 
+}
+
+.activity-list li {
+  list-style-type: none; /* Quita los puntos */
+  padding: 5px; /* Espaciado interno opcional */
+  margin: 5px 0; /* Espaciado entre elementos */
+}
+
+.activity-pending-list {
+  list-style-type: none; /* Quita los puntos de la lista */
+  padding: 0; /* Elimina el espacio extra a la izquierda */
+  margin-bottom: 15px;
 }
 
 /* Detalles de la actividad */
@@ -128,13 +242,20 @@ li {
 }
 
 /* Fecha límite */
-.deadline-expired {
-  color: #D32F2F;
-  font-weight: bold;
+.feedback-bad {
+  border-color: #D32F2F;
 }
 
-.deadline-remaining {
-  color: #388E3C;
+.feedback-good {
+  border-color: #388E3C;
+}
+
+.feedback-waiting {
+  border-color: #777503;
+}
+
+.result-waiting {
+  border-color: #fffb12
 }
 
 /* Mensaje cuando no hay actividades */
@@ -157,3 +278,19 @@ li {
   margin-top: 10px;
 }
 
+
+.back-button {
+  position: absolute;
+  left: 10px; /* Ajusta la posición horizontal */
+  top: 50%; /* Centra verticalmente */
+  transform: translateY(-50%); /* Ajusta el centrado vertical */
+  background: none; /* Sin fondo */
+  border: none; /* Sin borde */
+  font-size: 20px; /* Tamaño de la flecha */
+  color: white; /* Color de la flecha */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+.back-button:hover {
+  color: #ccc; /* Cambia el color al pasar el cursor */
+}

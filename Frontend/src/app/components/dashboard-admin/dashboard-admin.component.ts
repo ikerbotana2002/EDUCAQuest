@@ -30,7 +30,7 @@ export class DashboardAdminComponent implements OnInit {
     }
   }
 
-  getRolName(rolId: number): string {
+  getRolNameByID(rolId: number): string {
     switch (rolId) {
       case 0:
         return 'Alumno';
@@ -61,4 +61,28 @@ export class DashboardAdminComponent implements OnInit {
       }
     });
   }
+
+  getRolName(): string {
+    const rol_id = this.users.find(user => user.id === this.id_user)?.rol_id;
+    switch (rol_id) {
+      case 0:
+        return 'Alumno';
+      case 1:
+        return 'Profesor';
+      case 2:
+        return 'Admin';
+      case 3:
+        return 'Padre';
+      default:
+        return 'DESCONOCIDO';
+    }
+  }
+
+  getUserName(): string | undefined {
+    return this.users.find(user => user.id === this.id_user)?.name + ' ' + this.users.find(user => user.id === this.id_user)?.lastname;
+  }
+
+  getAvatar(): string | undefined {
+    return this.users.find(user => user.id === this.id_user)?.avatar;
+  }   
 }

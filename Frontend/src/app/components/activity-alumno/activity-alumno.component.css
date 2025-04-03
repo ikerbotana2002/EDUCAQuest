@@ -1,21 +1,34 @@
+.body {
+  background-color: #af8a8a;
+}
+
 .activity-container {
-  padding: 20px;
+  padding: 30px;
+  max-width: 900px; /* Ajusta el ancho para hacerlo más estrecho */
+  margin: auto; /* Centra horizontalmente */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centra verticalmente */
 }
 
 .activity-list {
   list-style-type: none;
   padding: 0;
+  width: 100%; /* Que ocupe el ancho del contenedor */
 }
 
 .activity-item {
-  border: 2px solid #ddd;
+  border: 2px solid #000000;
   border-radius: 8px;
-  margin-bottom: 20px;
   padding: 20px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
+.btn.btn-secondary {
+  font-size: 20px; /* Tamaño de la fuente */
+  margin-left: auto; /* Mueve el botón hacia la derecha */
+  margin-right: 100px;
+}
 
 .activity-header {
   display: flex;
@@ -68,6 +81,7 @@
   margin-right: 10px;
 }
 
+
 .deadline-warning {
   color: #D32F2F;
   font-weight: bold;
@@ -84,34 +98,37 @@
   margin-top: 20px;
 }
 
-/* Header con avatar */
+
+
+
+
+
 .header {
-  background: #1976D2;
+  background: #273644;
   padding: 15px;
   display: flex;
   align-items: center;
-  border-bottom: 3px solid #1565C0;
+  border-bottom: 3px solid #273644;
   position: relative;
+  justify-content: center; /* Centra horizontalmente los elementos */
 }
 
-/* Contenedor del rol */
-.role-container {
+.user-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
+  top: 15px;
+  right: 80px; 
 }
 
-/* Contenedor del avatar */
-.avatar-container {
-  display: flex;
-  align-items: center;
-  margin-left: auto; /* Alinea a la derecha */
-}
-
-li {
-  list-style: none;
+.user-role {
+  font-size: 13px;
+  color: white;
+  position: absolute;
+  top: 45px;
+  right: 80px;
+  text-transform: uppercase;
 }
 
 /* Imagen del avatar */
@@ -121,26 +138,38 @@ li {
   border-radius: 50%;
   border: 2px solid #fff;
   transition: transform 0.3s ease-in-out;
+  position: absolute;
+  top: 15px;
+  right: 10px; 
 }
 
 .user-avatar:hover {
   transform: scale(1.1);
 }
 
-.user-name {
-  font-size: 20px;
-  font-weight: bold;
-  margin-right: 13px; /* Añade un margen derecho al avatar */
-  color: white;
+.logo-photo {
+  width: 100px;
+  height: 50px;
+  transition: transform 0.3s ease-in-out;
+
 }
 
-.user-role {
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  padding: 10px 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.942);
-  background: #1565C0;
-  color: white;
+.logo-photo:hover {
+  transform: scale(1.1);
+}
+
+.back-button {
+  position: absolute;
+  left: 10px; /* Ajusta la posición horizontal */
+  top: 50%; /* Centra verticalmente */
+  transform: translateY(-50%); /* Ajusta el centrado vertical */
+  background: none; /* Sin fondo */
+  border: none; /* Sin borde */
+  font-size: 20px; /* Tamaño de la flecha */
+  color: white; /* Color de la flecha */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+.back-button:hover {
+  color: #ccc; /* Cambia el color al pasar el cursor */
 }

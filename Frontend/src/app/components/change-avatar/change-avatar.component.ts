@@ -80,8 +80,9 @@ export class ChangeAvatarComponent {
     }
   }
 
-  getRolName(rolId: number): string {
-    switch (rolId) {
+  getRolName(): string {
+    const rol_id = this.users.find(user => user.id === this.id_user)?.rol_id;
+    switch (rol_id) {
       case 0:
         return 'Alumno';
       case 1:
@@ -94,4 +95,12 @@ export class ChangeAvatarComponent {
         return 'DESCONOCIDO';
     }
   }
+
+  getUserName(): string | undefined {
+    return this.users.find(user => user.id === this.id_user)?.name + ' ' + this.users.find(user => user.id === this.id_user)?.lastname;
+  }
+
+  getAvatar(): string | undefined {
+    return this.users.find(user => user.id === this.id_user)?.avatar;
+  }  
 }

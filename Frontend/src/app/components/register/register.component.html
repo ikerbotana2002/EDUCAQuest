@@ -1,37 +1,40 @@
+
 <div class="wrapper">
+    <img src="assets/fondo2.jpeg" alt="Logo" class="fondo-image">
     <div class="body">
         <div action="">
-            <h1 class="mb-4 mt-3">Registrarme</h1>
+            <img src="assets/Logo-sinfondo.png" alt="Logo" width="300" height="150">
+            <h1 class="mb-4 mt-3 register-title"><strong>REGISTRO</strong></h1>
             <div class="row g-1">
                 <div class="form-floating mb-2 col">
                     <input type="text" class="form-control" [(ngModel)]="name" id="floatingName" placeholder="Name">
-                    <label for="floatingName">Name</label>
+                    <label for="floatingName">Nombre</label>
                 </div>
                 <div class="form-floating mb-2 col">
                     <input type="text" class="form-control" [(ngModel)]="lastname" id="floatingLastname"
                         placeholder="Lastname">
-                    <label for="floatingLastname">Lastname</label>
+                    <label for="floatingLastname">Apellido</label>
                 </div>
                 <div class="form-floating mb-2">
                     <input type="email" class="form-control" [(ngModel)]="email" id="floatingInput"
                         placeholder="name@example.com">
-                    <label for="floatingInput">Email address</label>
+                    <label for="floatingInput">Correo Electrónico</label>
                 </div>
-                <div class="form-floating mb-2 col">
+                <div class="form-floating mb-2">
                     <input type="password" class="form-control" [(ngModel)]="password" id="floatingPassword"
                         placeholder="Password">
-                    <label for="floatingPassword">Password</label>
+                    <label for="floatingPassword">Contraseña</label>
                 </div>
-                <div class="form-floating mb-2 col">
+                <div class="form-floating mb-2">
                     <input type="password" class="form-control" [(ngModel)]="repeatPassword"
                         id="floatingRepeatPassword" placeholder="Password">
-                    <label for="floatingRepeatPassword">Repeat Password</label>
+                    <label for="floatingRepeatPassword">Repetir Contraseña</label>
                 </div>
                 <div class="d-grid gap-2">
-                    <button class="btn btn-primary" (click)="addUser()" type="button">Registrarme</button>
+                    <button class="btn btn-primary custom-button" (click)="addUser()" type="button">Registrarme</button>
                 </div>
                 <div>
-                    <p class="mt-3">Ya tengo cuenta <a routerLink="/login">Iniciar Sesión</a></p>
+                    <p class="mt-3">Ya tengo cuenta <a routerLink="/login" style="color: navy;">Iniciar Sesión</a></p>
                 </div>
             </div>
         </div>

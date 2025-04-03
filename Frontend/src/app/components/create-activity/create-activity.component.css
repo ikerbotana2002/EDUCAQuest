@@ -87,64 +87,56 @@
   
   }
 
-  /* Header con avatar */
-/* Header con avatar */
-.header {
-  background: #1976D2;
-  padding: 15px;
-  display: flex;
-  align-items: center;
-  border-bottom: 3px solid #1565C0;
-  position: relative;
-}
-
-/* Contenedor del rol */
-.role-container {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-}
-
-/* Contenedor del avatar */
-.avatar-container {
-  display: flex;
-  align-items: center;
-  margin-left: auto; /* Alinea a la derecha */
-}
-
-li {
-  list-style: none;
-}
-
-/* Imagen del avatar */
-.user-avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  transition: transform 0.3s ease-in-out;
-}
-
-.user-avatar:hover {
-  transform: scale(1.1);
-}
-
-.user-name {
-  font-size: 20px;
-  font-weight: bold;
-  margin-right: 13px; /* Añade un margen derecho al avatar */
-  color: white;
-}
-
-.user-role {
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  padding: 10px 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.942);
-  background: #1565C0;
-  color: white;
-}
+  .header {
+    background: #273644;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid #273644;
+    position: relative;
+  }
+  
+  .user-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    top: 15px;
+    right: 70px; 
+  }
+  
+  .user-role {
+    font-size: 13px;
+    color: white;
+    position: absolute;
+    top: 45px;
+    right: 80px;
+    text-transform: uppercase;
+  }
+  
+  /* Imagen del avatar */
+  .user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    transition: transform 0.3s ease-in-out;
+    position: absolute;
+    top: 15px;
+    right: 10px; 
+  }
+  
+  .user-avatar:hover {
+    transform: scale(1.1);
+  }
+  
+  .logo-photo {
+    width: 100px;
+    height: 50px;
+    transition: transform 0.3s ease-in-out;
+  
+  }
+  
+  .logo-photo:hover {
+    transform: scale(1.1);
+  }

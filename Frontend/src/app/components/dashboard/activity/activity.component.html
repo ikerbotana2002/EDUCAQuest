@@ -1,56 +1,63 @@
+<img src="assets/fondo2.jpeg" alt="Fondo" class="fondo-image">
+
 <div class="header">
-  <div class="role-container">
-    <ng-container *ngFor="let user of users">
-      <span *ngIf="user.id === id_user" class="user-role">Rol: {{ getRolName(user.rol_id) }}</span>
-    </ng-container>
-  </div>
-  <div class="avatar-container">
-    <ng-container *ngFor="let user of users">
-      <li *ngIf="user.id === id_user">
-        <span class="user-name">{{ user.name }} {{ user.lastname }}</span>
-        <a [routerLink]="['/changeAvatar']">
-          <img [src]="'data:image/png;base64,' + user.avatar" alt="Imagen de {{ user.email }}" class="user-avatar">
-        </a>
-      </li>
-    </ng-container>
-  </div>
+  <a [routerLink]="['/login']">
+    <img src="assets/Logo-sinfondo.png" alt="Logo" class="logo-photo">
+  </a>
+  <a [routerLink]="['/changeAvatar']">
+    <img [src]="'data:image/png;base64,' + getAvatar()" alt="Imagen de {{ getUserName() }}" class="user-avatar">
+  </a>
+  <span class="user-name">{{ getUserName() }}</span>
+  <span class="user-role">{{ getRolName() }}</span>
 </div>
 
-<div class="users-container">
-  <ng-container *ngFor="let activity of activities">
-    <div *ngIf="activity.id == activityId" class="activity-item">
-      <h2>{{ activity.name | uppercase }}</h2>
-      <p>{{ activity.description }}</p>
-      <img *ngIf="activity.photo" [src]="'data:image/png;base64,' + activity.photo" alt="Imagen de {{ activity.name }}" class="activity-photo">
-    </div>
-  </ng-container>
-  <ng-container *ngFor="let user of users">
-    <div *ngIf="user.rol_id == 0" class="user-item">
-      <p>USUARIO : {{ user.name }} {{ user.lastname }} --- {{ user.email }}</p>
-      <div class="processes-container">
-        <ng-container *ngFor="let process of processes">
-          <div *ngIf="process.id_user === user.id && +process.id_activity === +activityId" class="process-item">
-            <p>Resultado de la actividad: {{ process.result }}</p>
-            <mat-radio-group [(ngModel)]="process.selectedOption">
-              <mat-radio-button value="Bien" class="radio-with-check" style="margin-left: 50px;">
-                <span class="check-symbol"></span>
-              </mat-radio-button>
-              <mat-radio-button value="Mal" class="radio-with-check" style="margin-left: 20px;">
-                <span class="cross-symbol"></span>
-              </mat-radio-button>
-            </mat-radio-group>
-            
-            <div class="text-container">
-              <label for="textInput">Comentario adicional:</label>
-              <input type="text" id="textInput" name="textInput" placeholder="Escribe aquí..." class="text-left" [(ngModel)]="process.additionalComment">
-            </div>
+<ng-container *ngFor="let activity of activities" class="activity-container">
+  <div *ngIf="activity.id == activityId" class="activity-item">
+    <h2 [ngStyle]="{'color': getSubjectColor(activity.id_subject)}">
+      {{ getSubjectNameById(activity.id_subject) | uppercase }} <span *ngIf="getSubjectDegreeById(activity.id_subject) !== 0">{{ getSubjectDegreeById(activity.id_subject) }}º</span>
+    </h2>        
+    <p>{{ activity.description }}</p>
+    <img [src]="'assets/activities/' + activity.name + '.png'" alt="Logo" class="activity-photo">
+  </div>
+</ng-container>
 
-            <div class="save-button-container">
-              <button mat-raised-button color="primary"
-                (click)="saveChanges(process.selectedOption, process.id_user, process.id_activity, process.additionalComment)">Guardar Cambios</button>
+<div class="users-container row">
+  <ng-container *ngFor="let user of users">
+    <div *ngIf="user.rol_id == 0" class="col-md-4 mb-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ user.name }} {{ user.lastname }}</h5>
+          
+          <ng-container *ngFor="let process of processes">
+            
+            <div *ngIf="process.id_user === user.id && +process.id_activity === +activityId">
+              <p class="card-text">
+                Resultado de la actividad: <strong>{{ process.result }}</strong>
+              </p>
+              <mat-radio-group [(ngModel)]="process.selectedOption">
+                <mat-radio-button value="Bien" class="radio-with-check" style="margin-left: 50px;">
+                  <span class="check-symbol"></span>
+                </mat-radio-button>
+                <mat-radio-button value="Mal" class="radio-with-check" style="margin-left: 20px;">
+                  <span class="cross-symbol"></span>
+                </mat-radio-button>
+              </mat-radio-group>
+
+              <div class="text-container mt-3">
+                <label for="textInput">Comentario adicional:</label>
+                <input type="text" id="textInput" name="textInput" placeholder="Escribe aquí..." class="form-control"
+                  [(ngModel)]="process.additionalComment">
+              </div>
+
+              <div class="save-button-container mt-3">
+                <button mat-raised-button color="primary"
+                  (click)="saveChanges(process.selectedOption, process.id_user, process.id_activity, process.additionalComment)">
+                  Guardar Cambios
+                </button>
+              </div>
             </div>
-          </div>
-        </ng-container>
+          </ng-container>
+        </div>
       </div>
     </div>
   </ng-container>

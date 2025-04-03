@@ -24,10 +24,30 @@ export class DashboardComponent {
   subjects: any[] = [];
   processes: any[] = [];
   id_user: number = 0;
+  sortedActivities: Activity[] = [];
+  coordinates: any[] = [
+    { id: 1, x: 54, y: 20 },  // 1075px → 75% | 100px → 5%
+    { id: 2, x: 60, y: 35 }, 
+    { id: 3, x: 57, y: 50 }, 
+    { id: 4, x: 51, y: 65 },
+    { id: 5, x: 49, y: 80 },
+    { id: 6, x: 55, y: 95 },
+    { id: 7, x: 52, y: 110 },
+    { id: 8, x: 47, y: 125 },
+    { id: 9, x: 54, y: 140 },
+    { id: 10, x: 38, y: 155 },
+    { id: 11, x: 55, y: 200 },
+    { id: 12, x: 70, y: 200 },
+    { id: 13, x: 73, y: 200 },
+    { id: 14, x: 55, y: 200 },
+    { id: 15, x: 38, y: 200 }
+  ];
+
 
   constructor(private subjectService: SubjectService, private _activityService: ActivityService, private toastr: ToastrService, private router: Router, private _userService: UserService, private _processService: ProcessService) { }
-  ngOnInit(): void {
 
+
+  ngOnInit(): void {
     const userIdString = localStorage.getItem('user_id');
     if (userIdString) {
       this.id_user = parseInt(userIdString, 10); // Asigna el id del usuario actual
@@ -50,19 +70,9 @@ export class DashboardComponent {
     });
   }
 
-  getRolName(rolId: number): string {
-    switch (rolId) {
-      case 0:
-        return 'Alumno';
-      case 1:
-        return 'Profesor';
-      case 2:
-        return 'Admin';
-      case 3:
-        return 'Padre';
-      default:
-        return 'DESCONOCIDO';
-    }
+  getActivityCoordinates(activityId: number) {
+    const coord = this.coordinates.find(c => c.id === activityId);
+    return coord ? coord : { x: 0, y: 0 }; // Si no hay coordenadas, devolver (0, 0)
   }
 
   formatDate(date: string): string {
@@ -81,25 +91,25 @@ export class DashboardComponent {
   getSubjectColor(id: number): string {
     const subjectName = this.getSubjectNameById(id);
     if (subjectName === 'Matemáticas') {
-      return 'blue';
+      return '#0b60ff'; //azul
     } else if (subjectName === 'Lengua') {
-      return 'red';
+      return '#e63939'; //rojo
     } else if (subjectName === 'Historia') {
-      return 'purple';
+      return '#921ff0'; //morado
     } else if (subjectName === 'Inglés') {
-      return 'turquoise';
+      return '#45a3da'; //turquesa
     } else if (subjectName === 'Sueño') {
-      return 'darkred';
+      return '#90eea4'; //verde claro casi gris
     } else if (subjectName === 'Salud mental') {
-      return 'cyan';
+      return '#26e436'; //verde
     } else if (subjectName === 'Nutrición') {
-      return 'yellow';
+      return '#ff9c1b'; //naranja
     } else if (subjectName === 'Ejercicio') {
-      return 'darkgreen';
+      return '#ff5555'; //salmon
     } else if (subjectName === 'Lectura') {
-      return 'lightgreen';
+      return '#f78bd6'; //rosa palo
     }
-  
+
     return 'black'; // Color por defecto
   }
 
@@ -115,5 +125,99 @@ export class DashboardComponent {
     const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     return { text: `${days} días y ${hours} horas restantes`, expired: false };
+  }
+
+  getRolName(): string {
+    const rol_id = this.users.find(user => user.id === this.id_user)?.rol_id;
+    switch (rol_id) {
+      case 0:
+        return 'Alumno';
+      case 1:
+        return 'Profesor';
+      case 2:
+        return 'Admin';
+      case 3:
+        return 'Padre';
+      default:
+        return 'DESCONOCIDO';
+    }
+  }
+
+  getUserName(): string | undefined {
+    return this.users.find(user => user.id === this.id_user)?.name + ' ' + this.users.find(user => user.id === this.id_user)?.lastname;
+  }
+
+  getAvatar(): string | undefined {
+    return this.users.find(user => user.id === this.id_user)?.avatar;
+  }
+
+  getFeedbackStatus(activityId: number): string {
+    const process = this.processes.find(
+      (process) => process.id_activity === activityId && process.id_user === this.id_user
+    );
+
+    const activity = this.activities.find(
+      (activity) => activity.id === activityId
+    );
+
+    if (process) {
+      if (process.feedback === 'Bien') {
+        return 'Bien';
+
+      } else if (process.feedback === 'Mal') {
+        return 'Mal';
+
+      } else if (!process.feedback) {
+        return 'Esperando corrección';
+      }
+    }
+
+    // Si no se encontró ningún proceso, pero la fecha límite aun no ha expirado, se sigue esperando a que el deadline termine para darla por mala
+    else if (!process && !this.getTimeRemaining(activity.deadline).expired) {
+      return 'Esperando resultado';
+    }
+
+    // Si no se encontró ningún proceso, y la fecha límite ha expirado, se da por mala
+    return 'Mal';
+  }
+
+  getSubjectImage(subjectId: number): string {
+    const subject = this.subjects.find(a => a.id === subjectId);
+    if (!subject) {
+      return 'assets/mapa.png'; // Imagen por defecto si no se encuentra la actividad
+    }
+
+    switch (subject.name) { // Suponiendo que `id_subject` identifica el tipo de actividad
+      case "Matemáticas":
+        return 'assets/mates.png';
+      case "Lengua":
+        return 'assets/lengua.png';
+      case "Historia":
+        return 'assets/historia.png';
+      case "Inglés":
+        return 'assets/ingles1.png';
+      case "Sueño":
+        return 'assets/sueño.png';
+      case "Salud mental":
+        return 'assets/salud-mental.png';
+      case "Nutrición":
+        return 'assets/nutricion.png';
+      case "Ejercicio":
+        return 'assets/ejercicio.png';
+      case "Lectura":
+        return 'assets/lectura.png';
+      default:
+        return 'assets/mapa.png'; // Imagen por defecto para otros casos
+    }
+  }
+
+  getUniqueSubjects(): any[] {
+    return this.subjects.filter((subject, index, self) =>
+      index === self.findIndex((s) => s.name === subject.name)
+    );
+  }
+
+  goBack(): void {
+    window.history.back(); // Navega a la página anterior
   }
 }

@@ -1,40 +1,37 @@
 /* Estilos generales */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
+  background-color: #f8f9fa;
   color: #333;
   margin: 0;
   padding: 0;
 }
 
-/* Header con avatar */
 .header {
-  background: #1976D2;
+  background: #273644;
   padding: 15px;
   display: flex;
   align-items: center;
-  border-bottom: 3px solid #1565C0;
+  border-bottom: 3px solid #273644;
   position: relative;
 }
 
-/* Contenedor del rol */
-.role-container {
+.user-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
+  top: 15px;
+  right: 70px;
 }
 
-/* Contenedor del avatar */
-.avatar-container {
-  display: flex;
-  align-items: center;
-  margin-left: auto; /* Alinea a la derecha */
-}
-
-li {
-  list-style: none;
+.user-role {
+  font-size: 13px;
+  color: white;
+  position: absolute;
+  top: 45px;
+  right: 80px;
+  text-transform: uppercase;
 }
 
 /* Imagen del avatar */
@@ -44,38 +41,39 @@ li {
   border-radius: 50%;
   border: 2px solid #fff;
   transition: transform 0.3s ease-in-out;
+  position: absolute;
+  top: 15px;
+  right: 10px; 
 }
 
 .user-avatar:hover {
   transform: scale(1.1);
 }
 
-.user-name {
-  font-size: 20px;
-  font-weight: bold;
-  margin-right: 13px; /* Añade un margen derecho al avatar */
-  color: white;
+.logo-photo {
+  width: 100px;
+  height: 50px;
+  transition: transform 0.3s ease-in-out;
+
 }
 
-.user-role {
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  padding: 10px 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.942);
-  background: #1565C0;
-  color: white;
+.logo-photo:hover {
+  transform: scale(1.1);
 }
+
+
+
 
 /* Contenedor de actividades */
 .activities-container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 40px auto;
   background: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative; /* Asegúrate de que esté bien posicionado */
+  z-index: 1; /* Asegura que esté encima del fondo */
 }
 
 /* Lista de actividades */
@@ -165,25 +163,34 @@ input:checked + .slider:before {
   transform: translateX(20px);
 }
 
-/* Botón para crear nueva actividad */
-.create-activity-container {
-  text-align: center;
-  margin-top: 20px;
+.filter-and-create-container {
+  display: flex; /* Activa Flexbox */
+  align-items: center; /* Alinea verticalmente los elementos */
+  justify-content: space-between; /* Espacia los elementos horizontalmente */
+  gap: 20px; /* Espaciado entre el filtro y el botón */
+  margin-bottom: 20px; /* Espaciado inferior para separar del resto del contenido */
+}
+
+.filter-container {
+  transform: translateX(-160px); /* Mueve el filtro 20px hacia la izquierda */
+}
+
+.sorter-container {
+  flex: 1; /* Permite que el filtro ocupe más espacio si es necesario */
 }
 
 .create-activity-container button {
-  background: #1976D2;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s;
+  white-space: nowrap; /* Evita que el texto del botón se divida en varias líneas */
+  background: #0d6efd;
+  transform: translateX(-100px); /* Mueve el filtro 20px hacia la izquierda */
+  color: white; /* Cambia el color del texto */
+
 }
 
 .create-activity-container button:hover {
-  background: #1565C0;
+  background: #0a58ca;
+  color: white; /* Cambia el color del texto */
+
 }
 
 /* Mensaje cuando no hay actividades */
@@ -199,4 +206,40 @@ input:checked + .slider:before {
   font-weight: bold;
   margin-right: 13px; /* Añade un margen derecho al avatar */
   color: white;
+}
+
+.sorter-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  width: 250px;
+  margin-top: 5px;
+}
+
+.form-select {
+  border-radius: 0.375rem; /* Bordes suaves */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.input-group-text {
+  background-color: #f8f9fa;
+  border-left: 1px solid #ddd;
+  border-radius: 0 0.375rem 0.375rem 0; /* Redondea la parte derecha */
+}
+
+.btn btn-primary {
+  background: #273644;
+}
+
+
+.fondo-image {
+  position: fixed; /* Fija la imagen al fondo */
+  top: 0;
+  left: 0;
+  width: 100%; /* Ocupa todo el ancho */
+  height: 100%; /* Ocupa todo el alto */
+  object-fit: cover; /* Asegúrate de que la imagen cubra todo el fondo */
+  opacity: 0.4; /* Opcional: ajusta la opacidad para un efecto más suave */
 }

@@ -19,7 +19,6 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withFetch } from '@angular/common
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { UserComponent } from './components/dashboard/user/user.component';
 import { TokenInterceptor } from './utils/token.interceptor';
 import { ActivityComponent } from './components/dashboard/activity/activity.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -28,7 +27,9 @@ import { CreateActivityComponent } from './components/create-activity/create-act
 import { ActivityAlumnoComponent } from './components/activity-alumno/activity-alumno.component';
 import { DashboardTutorComponent } from './components/dashboard-tutor/dashboard-tutor.component';
 import { ChangeAvatarComponent } from './components/change-avatar/change-avatar.component';
-
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -41,7 +42,6 @@ import { ChangeAvatarComponent } from './components/change-avatar/change-avatar.
     RegisterComponent,
     MaintenanceComponent,
     ErrorPageComponent,
-    UserComponent,
     DashboardProfesorComponent,
     ActivityComponent,
     DashboardAdminComponent,
@@ -53,10 +53,13 @@ import { ChangeAvatarComponent } from './components/change-avatar/change-avatar.
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatIconModule,
     FormsModule,
     CommonModule,
     BrowserAnimationsModule,
     MatRadioModule,
+    MatDialogModule,
+    MatButtonModule,
     ToastrModule.forRoot(
       {
         timeOut: 10000, //duracion de la ventana del error y posicion (y que no salgan varios)

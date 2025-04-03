@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
   rol_id: number = 0;
   password: string = '';
   repeatPassword: string = '';
-
+  
   constructor(private toastr: ToastrService, private _userService: UserService, private router: Router) {}
   ngOnInit(): void {}
 

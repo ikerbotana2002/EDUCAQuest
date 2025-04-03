@@ -1,51 +1,86 @@
+<img src="assets/fondo2.jpeg" alt="Fondo" class="fondo-image">
+
 <div class="header">
-  <div class="role-container">
-    <ng-container *ngFor="let user of users">
-      <span *ngIf="user.id === id_user" class="user-role">Rol: {{ getRolName(user.rol_id) }}</span>
-    </ng-container>
-  </div>
-  <div class="avatar-container">
-    <ng-container *ngFor="let user of users">
-      <li *ngIf="user.id === id_user">
-        <span class="user-name">{{ user.name }} {{ user.lastname }}</span>
-        <a [routerLink]="['/changeAvatar']">
-          <img [src]="'data:image/png;base64,' + user.avatar" alt="Imagen de {{ user.email }}" class="user-avatar">
-        </a>
-      </li>
-    </ng-container>
-  </div>
+  <a [routerLink]="['/login']">
+    <img src="assets/Logo.PNG" alt="Logo" class="logo-photo">
+  </a>
+  <a [routerLink]="['/changeAvatar']">
+    <img [src]="'data:image/png;base64,' + getAvatar()" alt="Imagen de {{ getUserName() }}" class="user-avatar">
+  </a>
+  <span class="user-name">{{ getUserName() }}</span>
+  <span class="user-role">{{ getRolName() }}</span>
 </div>
 
-<div *ngIf="activities.length > 0; else noActivities" class="activities-container">
-  <ul class="activity-list">
-    <li *ngFor="let activity of activities" class="activity-item">
-      <ng-container *ngIf="activity.available; else noLink">
-        <a [routerLink]="['/activity', activity.id]" class="activity-link">
-          <strong [ngStyle]="{'color': getSubjectColor(activity.id_subject)}">{{ getSubjectNameById(activity.id_subject) }}</strong> - <strong>{{ activity.name | uppercase }}</strong> - {{ activity.description }}
-        </a>
-        <label class="switch">
-          <input type="checkbox" (change)="onToggle($event, activity.id)" [checked]="activity.available">
-          <span class="slider round"></span>
-        </label>
-      </ng-container>
-      
-      <ng-template #noLink>
-        <span class="activity-text">
-          <strong [ngStyle]="{'color': getSubjectColor(activity.id_subject)}">{{ getSubjectNameById(activity.id_subject) }}</strong> - <strong>{{ activity.name | uppercase }}</strong> - {{ activity.description }}
-        </span>
-        <label class="switch">
-          <input type="checkbox" (change)="onToggle($event, activity.id)">
-          <span class="slider round"></span>
-        </label>
-      </ng-template>  
-    </li>
-  </ul>
+
+
+<div *ngIf="sortedActivities.length > 0; else noActivities" class="activities-container row">
+  <div class="filter-and-create-container">
+    <div class="sorter-container mb-3">
+      <label for="sortSelect" class="form-label fs-5">ORDENAR POR:</label>
+      <div class="input-group">
+        <select id="sortSelect" class="form-select" [(ngModel)]="selectedSortOption" (change)="sortActivities()">
+          <option value="id">ID</option>
+          <option value="subject">Asignatura</option>
+          <option value="available">Disponibilidad</option>
+          <option value="completion">Ordenar por % completado</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="filter-container mb-3">
+      <label for="subjectFilter" class="form-label fs-5">FILTRAR POR:</label>
+      <div class="input-group">
+        <select id="subjectFilter" class="form-select" [(ngModel)]="selectedSubject" (change)="filterBySubject()">
+          <option value="">Todas las asignaturas</option>
+            <option *ngFor="let subject of subjects" [value]="subject.id">
+            {{ subject.name }} <span *ngIf="subject.degree !== null">{{ subject.degree }}º</span>
+            </option>
+        </select>
+      </div>
+    </div>
+  
+    <div class="create-activity-container">
+      <button mat-raised-button color="primary" (click)="navigateToCreateActivity()">Crear Nueva Actividad</button>
+    </div>
+  </div>
+
+  
+  <ng-container *ngFor="let activity of sortedActivities">
+    <div class="col-md-4 mb-3">
+      <div class="card bg-light">
+        <div class="card-header">
+          <strong [ngStyle]="{'color': getSubjectColor(activity.id_subject)}">
+            {{ getSubjectNameById(activity.id_subject) }}
+          </strong>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ activity.name | uppercase }}</h5>
+          <p class="card-text">{{ activity.description }}</p>
+
+          <!-- Mostrar el porcentaje de alumnos que han completado la actividad -->
+          <p class="card-text">
+            <strong>Completado:</strong> {{ getCompletionPercentage(activity.id) }}%
+          </p>
+
+          <ng-container *ngIf="activity.available; else noLink">
+            <a [routerLink]="['/activity', activity.id]" class="btn btn-primary">Ir a la actividad</a>
+          </ng-container>
+
+          <ng-template #noLink>
+            <span class="text-muted">No disponible</span>
+          </ng-template>
+
+          <div class="form-check form-switch mt-2">
+            <input class="form-check-input" type="checkbox" (change)="onToggle($event, activity.id)"
+              [checked]="activity.available">
+            <label class="form-check-label">Disponible</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
 </div>
 
 <ng-template #noActivities>
   <p class="no-activities-message">No hay actividades disponibles.</p>
 </ng-template>
-
-<div class="create-activity-container">
-  <button mat-raised-button color="primary" (click)="navigateToCreateActivity()">Crear Nueva Actividad</button>
-</div>

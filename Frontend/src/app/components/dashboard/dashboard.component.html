@@ -1,53 +1,83 @@
 <div class="header">
-  <div class="role-container">
-    <ng-container *ngFor="let user of users">
-      <span *ngIf="user.id === id_user" class="user-role">Rol: {{ getRolName(user.rol_id) }}</span>
-    </ng-container>
-  </div>
-  <div class="avatar-container">
-    <ng-container *ngFor="let user of users">
-      <li *ngIf="user.id === id_user">
-        <span class="user-name">{{ user.name }} {{ user.lastname }}</span>
-        <a [routerLink]="['/changeAvatar']">
-          <img [src]="'data:image/png;base64,' + user.avatar" alt="Imagen de {{ user.email }}" class="user-avatar">
-        </a>
-      </li>
-    </ng-container>
-  </div>
+  <button class="back-button" (click)="goBack()">
+    &#8592; <!-- Flecha hacia la izquierda -->
+  </button>
+  <a [routerLink]="['/login']">
+    <img src="assets/Logo-sinfondo.png" alt="Logo" class="logo-photo">
+  </a>
+  <a [routerLink]="['/changeAvatar']">
+    <img [src]="'data:image/png;base64,' + getAvatar()" alt="Imagen de {{ getUserName() }}" class="user-avatar">
+  </a>
+  <span class="user-name">{{ getUserName() }}</span>
+  <span class="user-role">{{ getRolName() }}</span>
 </div>
 
-<div *ngIf="activities.length > 0; else noActivities" class="activities-container">
+
+<div class="background-image">
+  <img src="assets/camino6.jpeg" alt="Logo" width="1000px" height="1000px">
+</div>
+
+<div *ngIf="activities.length > 0; else noActivities">
+
+  <div class="pending-activities">
+    <h3>Actividades Pendientes</h3>
+    <ul class="activity-pending-list">
+      <ng-container *ngFor="let activity of activities">
+        <li *ngIf="getFeedbackStatus(activity.id) === 'Esperando resultado' && activity.available === 1">
+          <a [routerLink]="['/activityAlumno', activity.id]" class="activity-link">
+            <u>{{ activity.name }}</u> - <span class="deadline">({{ getTimeRemaining(activity.deadline).text }})</span>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+
+  <div class="legend">
+    <h3>Leyenda</h3>
+    <ul class="legend-list">
+      <ng-container *ngFor="let subject of getUniqueSubjects()">
+        <li class="legend-item">
+          <img [src]="getSubjectImage(subject.id)" alt="{{ subject.name }}" class="subject-photo">
+          <span class="subject-name">{{ subject.name }}</span>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+
+  
+
+
   <ul class="activity-list">
     <ng-container *ngFor="let activity of activities">
-      <li *ngIf="activity.available === 1" class="activity-item" [ngStyle]="{'border-color': getSubjectColor(activity.id_subject)}">
+      <li *ngIf="activity.available === 1; else notAvailable" class="activity-item" [ngClass]="{
+        'feedback-good': getFeedbackStatus(activity.id) === 'Bien', 
+        'feedback-bad': getFeedbackStatus(activity.id) === 'Mal', 
+        'feedback-waiting': getFeedbackStatus(activity.id) === 'Esperando corrección',
+        'result-waiting': getFeedbackStatus(activity.id) === 'Esperando resultado'
+      }"
+        [ngStyle]="{'background-color': getSubjectColor(activity.id_subject), 'position': 'absolute','left': getActivityCoordinates(activity.id).x + '%','top': getActivityCoordinates(activity.id).y + '%','transform': 'translate(-50%, -50%)'}">
         <a [routerLink]="['/activityAlumno', activity.id]" class="activity-link">
-          <div class="activity-details">
-            <strong [ngStyle]="{'color': getSubjectColor(activity.id_subject)}">{{ getSubjectNameById(activity.id_subject) }}</strong> - <strong>{{ activity.name | uppercase }}</strong>
-            <p>{{ activity.description }}</p>
-            <p [ngClass]="{'deadline-expired': getTimeRemaining(activity.deadline).expired, 'deadline-remaining': !getTimeRemaining(activity.deadline).expired}">
-              Fecha límite: {{ getTimeRemaining(activity.deadline).text }}
-            </p>
-          </div>
-          <div class="expiration-date">
-            <p>FECHA DE EXPIRACIÓN: {{ formatDate(activity.deadline) }}</p>
-          </div>
-          <ng-container *ngFor="let process of processes">
-            <div *ngIf="process.id_user === id_user && process.id_activity === activity.id" class="feedback-status">
-              <div *ngIf="process.feedback; else waitingFeedback" class="feedback-status">
-                <p>CORREGIDA</p>
-              </div>
-            </div>
-          </ng-container>
+          <img [src]="getSubjectImage(activity.id_subject)" alt="Logo" class="subject-photo">
+
+          <span class="hover-text">{{ getFeedbackStatus(activity.id) }}</span>
+
         </a>
       </li>
+      <ng-template #notAvailable>
+        <li class="activity-item-not-available" [ngStyle]="{
+              'background-color': 'gray',
+              'position': 'absolute', 
+              'left': getActivityCoordinates(activity.id).x + '%',
+              'top': getActivityCoordinates(activity.id).y + '%',
+              'transform': 'translate(-50%, -50%)'
+            }">
+          <a> {{activity.name | uppercase}}</a>
+        </li>
+      </ng-template>
     </ng-container>
   </ul>
 </div>
 
 <ng-template #noActivities>
   <p class="no-activities-message">No hay actividades disponibles.</p>
-</ng-template>
-
-<ng-template #waitingFeedback>
-  <p class="waitingFeedback-message">ESPERANDO POR LA CORRECIÓN...</p>
 </ng-template>
