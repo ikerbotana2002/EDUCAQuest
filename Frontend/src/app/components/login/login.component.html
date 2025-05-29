@@ -11,6 +11,8 @@
     <div class="form-floating">
       <input type="password" class="form-control" [(ngModel)]="password" id="floatingPassword" placeholder="Password">
       <label for="floatingPassword">Contraseña</label>
+      <a routerLink="/forgot-password" style="color: navy;">He olvidado mi contraseña</a>
+
       <div class="d-grid gap-2">
         <button class="btn btn-primary custom-button" (click)="login()" type="button">Iniciar Sesión</button>
       </div>

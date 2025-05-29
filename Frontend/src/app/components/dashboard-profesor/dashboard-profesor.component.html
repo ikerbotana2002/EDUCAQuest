@@ -1,8 +1,12 @@
 <img src="assets/fondo2.jpeg" alt="Fondo" class="fondo-image">
 
+
 <div class="header">
+  <a (click)="goBack()">
+    <img src="assets/flecha-izquierda.png" alt="Logo" class="back-button">
+  </a>
   <a [routerLink]="['/login']">
-    <img src="assets/Logo.PNG" alt="Logo" class="logo-photo">
+    <img src="assets/Logo-sinfondo.png" alt="Logo" class="logo-photo">
   </a>
   <a [routerLink]="['/changeAvatar']">
     <img [src]="'data:image/png;base64,' + getAvatar()" alt="Imagen de {{ getUserName() }}" class="user-avatar">
@@ -15,6 +19,17 @@
 
 <div *ngIf="sortedActivities.length > 0; else noActivities" class="activities-container row">
   <div class="filter-and-create-container">
+    <div class="view-toggle mb-3">
+      <!-- Botón de cuadrícula -->
+      <button class="btn btn-outline-primary" (click)="isListView = false" [disabled]="!isListView">
+        <img src="assets/cuadricula.png" alt="Cuadrícula" style="width: 20px; height: 20px;">
+      </button>
+    
+      <!-- Botón de lista -->
+      <button class="btn btn-outline-primary" (click)="isListView = true" [disabled]="isListView">
+        <img src="assets/lista.png" alt="Lista" style="width: 20px; height: 20px;">
+      </button>
+    </div>
     <div class="sorter-container mb-3">
       <label for="sortSelect" class="form-label fs-5">ORDENAR POR:</label>
       <div class="input-group">
@@ -46,16 +61,22 @@
 
   
   <ng-container *ngFor="let activity of sortedActivities">
-    <div class="col-md-4 mb-3">
+    <div [ngClass]="isListView ? 'list-view-item' : 'col-md-4 mb-3'">
       <div class="card bg-light">
         <div class="card-header">
           <strong [ngStyle]="{'color': getSubjectColor(activity.id_subject)}">
             {{ getSubjectNameById(activity.id_subject) }}
+            <span *ngIf="getSubjectDegreeById(activity.id_subject) !== null">
+              {{ getSubjectDegreeById(activity.id_subject) }}º
+            </span>
           </strong>
         </div>
         <div class="card-body">
-          <h5 class="card-title">{{ activity.name | uppercase }}</h5>
-          <p class="card-text">{{ activity.description }}</p>
+          <h5 class="card-title" *ngIf="!isListView">{{ activity.name | uppercase }}</h5>
+          <p class="card-text" [attr.title]="isListView ? activity.description : null">
+            {{ activity.description }}
+          </p>
+          
 
           <!-- Mostrar el porcentaje de alumnos que han completado la actividad -->
           <p class="card-text">
@@ -63,7 +84,7 @@
           </p>
 
           <ng-container *ngIf="activity.available; else noLink">
-            <a [routerLink]="['/activity', activity.id]" class="btn btn-primary">Ir a la actividad</a>
+            <a [routerLink]="['/activityView', activity.id]" class="btn btn-primary">Ir a la actividad</a>
           </ng-container>
 
           <ng-template #noLink>
@@ -73,7 +94,8 @@
           <div class="form-check form-switch mt-2">
             <input class="form-check-input" type="checkbox" (change)="onToggle($event, activity.id)"
               [checked]="activity.available">
-            <label class="form-check-label">Disponible</label>
+            <label class="form-check-label" *ngIf="!isListView">Disponible</label>
+
           </div>
         </div>
       </div>
@@ -83,4 +105,6 @@
 
 <ng-template #noActivities>
   <p class="no-activities-message">No hay actividades disponibles.</p>
+  <button class="boton-reset" (click)="resetActivities()">Volver</button>
+
 </ng-template>

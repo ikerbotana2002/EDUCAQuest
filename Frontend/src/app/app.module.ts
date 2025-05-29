@@ -30,7 +30,13 @@ import { ChangeAvatarComponent } from './components/change-avatar/change-avatar.
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-
+import { ModalComponent } from './components/modal/modal.component';
+import { MatSliderModule } from '@angular/material/slider'; // Importa MatSliderModule
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ActivityViewComponent } from './components/activity-view/activity-view.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +55,10 @@ import { MatButtonModule } from '@angular/material/button';
     ActivityAlumnoComponent,
     DashboardTutorComponent,
     ChangeAvatarComponent,
+    ModalComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    ActivityViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +70,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatRadioModule,
     MatDialogModule,
     MatButtonModule,
+    MatSliderModule,
+    MatFormFieldModule,
+    MatSelectModule,
     ToastrModule.forRoot(
       {
         timeOut: 10000, //duracion de la ventana del error y posicion (y que no salgan varios)

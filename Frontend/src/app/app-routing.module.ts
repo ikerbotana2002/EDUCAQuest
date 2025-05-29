@@ -13,6 +13,9 @@ import { MaintenanceComponent } from './components/maintenance/maintenance.compo
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { DashboardTutorComponent } from './components/dashboard-tutor/dashboard-tutor.component';
 import { ChangeAvatarComponent } from './components/change-avatar/change-avatar.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component'; 
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ActivityViewComponent } from './components/activity-view/activity-view.component';
 
 import { AuthGuard } from './auth.guard';
 import { ProfesorGuard } from './profesor.guard';
@@ -30,10 +33,13 @@ const routes: Routes = [
   { path: 'maintenance', component: MaintenanceComponent, canActivate: [AuthGuard] },
   { path: 'errorPage', component: ErrorPageComponent },
   { path: 'activity/:id', component: ActivityComponent, canActivate: [AuthGuard] },
+  { path: 'activityView/:id', component: ActivityViewComponent, canActivate: [AuthGuard] },
   { path: 'activityAlumno/:id', component: ActivityAlumnoComponent, canActivate: [AuthGuard] },
   { path: 'createActivity', component: CreateActivityComponent, canActivate: [AuthGuard, ProfesorGuard] },
   { path: 'dashboardTutor', component: DashboardTutorComponent, canActivate: [AuthGuard] },
   { path: 'changeAvatar', component: ChangeAvatarComponent, canActivate: [AuthGuard] },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: '**', redirectTo: '/errorPage', pathMatch: 'full' }
 ];
 

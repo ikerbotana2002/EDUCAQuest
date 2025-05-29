@@ -1,6 +1,9 @@
 <img src="assets/fondo2.jpeg" alt="Fondo" class="fondo-image">
 
 <div class="header">
+  <a (click)="goBack()">
+    <img src="assets/flecha-izquierda.png" alt="Logo" class="back-button">
+  </a>
   <a [routerLink]="['/login']">
     <img src="assets/Logo-sinfondo.png" alt="Logo" class="logo-photo">
   </a>
@@ -17,12 +20,37 @@
       {{ getSubjectNameById(activity.id_subject) | uppercase }} <span *ngIf="getSubjectDegreeById(activity.id_subject) !== 0">{{ getSubjectDegreeById(activity.id_subject) }}º</span>
     </h2>        
     <p>{{ activity.description }}</p>
+    <p>Resultado: {{ activity.result }}</p>
     <img [src]="'assets/activities/' + activity.name + '.png'" alt="Logo" class="activity-photo">
   </div>
 </ng-container>
 
+<div class="search-container">
+  <input
+    type="text"
+    placeholder="Buscar alumnos..."
+    class="search-bar"
+    (input)="filterUsers($event)"
+  />
+</div>
+
+<div class="filter-container mb-3">
+  <label for="userFilter" class="form-label fs-5">FILTRAR POR:</label>
+  <div class="input-group">
+    <select id="userFilter" class="form-select" [(ngModel)]="selectedUserFilter" (change)="filterUsersByResponse()">
+      <option value="all">Todos los usuarios</option>
+      <option value="responded">Usuarios que han respondido</option>
+    </select>
+  </div>
+</div>
+
+
+
 <div class="users-container row">
-  <ng-container *ngFor="let user of users">
+  <div class="col-12 text-center mb-3">
+    <a [routerLink]="['/activityView', activityId]" class="btn btn-primary">VER LISTA</a>
+  </div>
+  <ng-container *ngFor="let user of filteredUsers">
     <div *ngIf="user.rol_id == 0" class="col-md-4 mb-4">
       <div class="card h-100">
         <div class="card-body">
@@ -34,14 +62,10 @@
               <p class="card-text">
                 Resultado de la actividad: <strong>{{ process.result }}</strong>
               </p>
-              <mat-radio-group [(ngModel)]="process.selectedOption">
-                <mat-radio-button value="Bien" class="radio-with-check" style="margin-left: 50px;">
-                  <span class="check-symbol"></span>
-                </mat-radio-button>
-                <mat-radio-button value="Mal" class="radio-with-check" style="margin-left: 20px;">
-                  <span class="cross-symbol"></span>
-                </mat-radio-button>
-              </mat-radio-group>
+              
+              <span *ngFor="let i of [1, 2, 3]" (click)="process.feedback = i" style="cursor:pointer">
+                <mat-icon>{{ process.feedback >= i ? 'star' : 'star_border' }}</mat-icon>
+              </span>
 
               <div class="text-container mt-3">
                 <label for="textInput">Comentario adicional:</label>
@@ -51,7 +75,7 @@
 
               <div class="save-button-container mt-3">
                 <button mat-raised-button color="primary"
-                  (click)="saveChanges(process.selectedOption, process.id_user, process.id_activity, process.additionalComment)">
+                  (click)="saveChanges(process.feedback, process.id_user, process.id_activity, process.additionalComment)">
                   Guardar Cambios
                 </button>
               </div>

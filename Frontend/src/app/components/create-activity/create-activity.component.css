@@ -1,142 +1,175 @@
 /* Estilo para el contenedor principal */
 .wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f8f9fa;
-  }
-  
-  .body {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    width: 100%;
-  }
-  
-  h1 {
-    text-align: center;
-    color: #333;
-  }
-  
-  .form-floating {
-    position: relative;
-  }
-  
-  .form-floating label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    padding: 1rem 0.75rem;
-    pointer-events: none;
-    border: 1px solid transparent;
-    transform-origin: 0 0;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .form-floating input,
-  .form-floating textarea {
-    height: calc(3.5rem + 2px);
-    padding: 1rem 0.75rem;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    outline: none;
-    transition: border-color 0.2s ease-in-out;
-  }
-  
-  .form-floating input:focus,
-  .form-floating textarea:focus {
-    border-color: #80bdff;
-  }
-  
-  .form-floating input:focus + label,
-  .form-floating textarea:focus + label,
-  .form-floating input:not(:placeholder-shown) + label,
-  .form-floating textarea:not(:placeholder-shown) + label {
-    transform: scale(0.85) translateY(-1.5rem) translateX(0.15rem);
-    color: #495057;
-  }
-  
-  .d-grid {
-    display: grid;
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-    color: #fff;
-    padding: 0.75rem 1.25rem;
-    font-size: 1rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #004085;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
 
-  .user-name {
-    font-size: 20px;
-    font-weight: bold;
-    margin-right: 13px; /* Añade un margen derecho al avatar */
-    color: white;
-  
-  }
+.body {
+  margin-top: 120px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+}
 
-  .header {
-    background: #273644;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    border-bottom: 3px solid #273644;
-    position: relative;
-  }
-  
-  .user-name {
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    position: absolute;
-    top: 15px;
-    right: 70px; 
-  }
-  
-  .user-role {
-    font-size: 13px;
-    color: white;
-    position: absolute;
-    top: 45px;
-    right: 80px;
-    text-transform: uppercase;
-  }
-  
-  /* Imagen del avatar */
-  .user-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid #fff;
-    transition: transform 0.3s ease-in-out;
-    position: absolute;
-    top: 15px;
-    right: 10px; 
-  }
-  
-  .user-avatar:hover {
-    transform: scale(1.1);
-  }
-  
-  .logo-photo {
-    width: 100px;
-    height: 50px;
-    transition: transform 0.3s ease-in-out;
-  
-  }
-  
-  .logo-photo:hover {
-    transform: scale(1.1);
-  }
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.form-floating {
+  position: relative;
+}
+
+.form-floating label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding: 1rem 0.75rem;
+  pointer-events: none;
+  border: 1px solid transparent;
+  transform-origin: 0 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-floating input,
+.form-floating textarea {
+  height: calc(3.5rem + 2px);
+  padding: 1rem 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.form-floating input:focus,
+.form-floating textarea:focus {
+  border-color: #80bdff;
+}
+
+.form-floating input:focus+label,
+.form-floating textarea:focus+label,
+.form-floating input:not(:placeholder-shown)+label,
+.form-floating textarea:not(:placeholder-shown)+label {
+  transform: scale(0.85) translateY(-1.5rem) translateX(0.15rem);
+  color: #495057;
+}
+
+.d-grid {
+  display: grid;
+}
+
+.btn-primary {
+  background-color: #273644;
+  border-color: #273644;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #1f2933;
+  border-color: #1f2933;
+}
+
+.user-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 13px;
+  /* Añade un margen derecho al avatar */
+  color: white;
+
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  width: 100%;
+  background: #273644;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid #273644;
+  justify-content: center; /* Centra horizontalmente los elementos */
+}
+
+.user-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  position: absolute;
+  top: 15px;
+  right: 70px;
+}
+
+.user-role {
+  font-size: 13px;
+  color: white;
+  position: absolute;
+  top: 45px;
+  right: 80px;
+  text-transform: uppercase;
+}
+
+/* Imagen del avatar */
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  transition: transform 0.3s ease-in-out;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+}
+
+.user-avatar:hover {
+  transform: scale(1.1);
+}
+
+.logo-photo {
+  width: 100px;
+  height: 50px;
+  transition: transform 0.3s ease-in-out;
+
+}
+
+.logo-photo:hover {
+  transform: scale(1.1);
+}
+
+.preview-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-top: 10px;
+}
+
+.back-button {
+  cursor: pointer;
+  /* Cambia el cursor al pasar sobre el botón */
+  width: 50px;
+  height: 50px;
+  transition: transform 0.3s ease-in-out;
+  position: absolute;
+  /* Posiciona el botón de forma absoluta */
+  top: 15px;
+  /* Ajusta la posición vertical */
+  left: 15px;
+  /* Ajusta la posición horizontal */
+}
+
+.back-button:hover {
+  transform: scale(1.1);
+  /* Aumenta ligeramente el tamaño */
+}

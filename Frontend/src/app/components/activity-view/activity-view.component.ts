@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ActivityService } from '../../../services/activity.service';
-import { UserService } from '../../../services/user.service';
+import { ActivityService } from '../../services/activity.service';
+import { UserService } from '../../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ProcessService } from '../../../services/process.service';
-import { SubjectService } from '../../../services/subject.service';
+import { ProcessService } from '../../services/process.service';
+import { SubjectService } from '../../services/subject.service';
+import { MatSliderModule } from '@angular/material/slider';
 
 
 @Component({
-  selector: 'app-activity',
+  selector: 'app-activity-view',
   standalone: false,
-
-  templateUrl: './activity.component.html',
-  styleUrl: './activity.component.css'
-
+  
+  templateUrl: './activity-view.component.html',
+  styleUrl: './activity-view.component.css'
 })
+export class ActivityViewComponent {
 
-export class ActivityComponent {
 
   activities: any[] = [];
   users: any[] = [];

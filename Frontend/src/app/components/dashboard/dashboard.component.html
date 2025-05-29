@@ -1,29 +1,38 @@
+<img src="assets/fondo2.jpeg" alt="Fondo" class="fondo-image">
+
+
 <div class="header">
-  <button class="back-button" (click)="goBack()">
-    &#8592; <!-- Flecha hacia la izquierda -->
-  </button>
-  <a [routerLink]="['/login']">
-    <img src="assets/Logo-sinfondo.png" alt="Logo" class="logo-photo">
+  <a (click)="goBack()">
+    <img src="assets/flecha-izquierda.png" alt="Logo" class="back-button">
   </a>
-  <a [routerLink]="['/changeAvatar']">
+  <img src="assets/Logo-sinfondo.png" alt="Logo" class="logo-photo">
+
+  <div class="avatar-container" (mouseenter)="showDropdown = true" (mouseleave)="showDropdown = false">
     <img [src]="'data:image/png;base64,' + getAvatar()" alt="Imagen de {{ getUserName() }}" class="user-avatar">
-  </a>
+
+    <div class="avatar-dropdown" *ngIf="showDropdown">
+      <a [routerLink]="['/changeAvatar']">Cambiar avatar</a>
+      <a (click)="logout()">Cerrar sesión</a>
+    </div>
+  </div>
+
   <span class="user-name">{{ getUserName() }}</span>
   <span class="user-role">{{ getRolName() }}</span>
+
 </div>
 
 
 <div class="background-image">
-  <img src="assets/camino6.jpeg" alt="Logo" width="1000px" height="1000px">
+  <img src="assets/camino3.png" alt="Logo">
 </div>
 
 <div *ngIf="activities.length > 0; else noActivities">
 
   <div class="pending-activities">
-    <h3>Actividades Pendientes</h3>
+    <h3>ACTIVIDADES PENDIENTES</h3>
     <ul class="activity-pending-list">
       <ng-container *ngFor="let activity of activities">
-        <li *ngIf="getFeedbackStatus(activity.id) === 'Esperando resultado' && activity.available === 1">
+        <li *ngIf="getFeedbackStatus(activity.id) === 'Esperando respuesta' && activity.available === 1">
           <a [routerLink]="['/activityAlumno', activity.id]" class="activity-link">
             <u>{{ activity.name }}</u> - <span class="deadline">({{ getTimeRemaining(activity.deadline).text }})</span>
           </a>
@@ -33,47 +42,102 @@
   </div>
 
   <div class="legend">
-    <h3>Leyenda</h3>
+    <h3>LEYENDA</h3>
+
     <ul class="legend-list">
       <ng-container *ngFor="let subject of getUniqueSubjects()">
         <li class="legend-item">
-          <img [src]="getSubjectImage(subject.id)" alt="{{ subject.name }}" class="subject-photo">
-          <span class="subject-name">{{ subject.name }}</span>
+          <div class="legend-icon" [ngStyle]="{'background-color': getSubjectColor(subject.id)}">
+            <img [src]="getSubjectImage(subject.id)" alt="{{ subject.name }}">
+          </div>
+          <span class="subject-name">- {{ subject.name }}</span>
         </li>
       </ng-container>
     </ul>
+
+    <li class="legend-item">
+      <div class="legend-icon legend-icon-ring feedback-legend-good"></div>
+      <span>- Bien</span>
+    </li>
+    <li class="legend-item">
+      <div class="legend-icon legend-icon-ring feedback-legend-bad"></div>
+      <span>- Mal</span>
+    </li>
+    <li class="legend-item">
+      <div class="legend-icon legend-icon-ring feedback-legend-waiting"></div>
+      <span>- Esperando corrección</span>
+    </li>
+    <li class="legend-item">
+      <div class="legend-icon legend-icon-ring feedback-legend-response"></div>
+      <span>- Esperando respuesta</span>
+    </li>
+    <li class="legend-item">
+      <div class="legend-icon legend-icon-ring feedback-legend-unavailable"></div>
+      <span>- No disponible</span>
+    </li>
+
   </div>
 
-  
+  <div class="score">
+    <h3>PUNTUACIÓN</h3>
+    <p class="score-text">{{ getTotalStars() }} / {{ activities.length * 3 }} <mat-icon>star</mat-icon> </p>
+  </div>
+
+
 
 
   <ul class="activity-list">
+    <!-- Texto INICIO en el mapa -->
+    <img src="assets/iniciar.png" style="left: 70%; top: 25%;" class="bandera-inicio">
+
+    <!-- Texto FIN en el mapa -->
+    <img src="assets/bandera-de-carreras.png" style="left: 90%; top: 200%;" class="bandera-fin">
+
     <ng-container *ngFor="let activity of activities">
       <li *ngIf="activity.available === 1; else notAvailable" class="activity-item" [ngClass]="{
-        'feedback-good': getFeedbackStatus(activity.id) === 'Bien', 
-        'feedback-bad': getFeedbackStatus(activity.id) === 'Mal', 
+        'feedback-good': getFeedbackStatus(activity.id) === 1 || getFeedbackStatus(activity.id) === 2 || getFeedbackStatus(activity.id) === 3, 
+        'feedback-bad': getFeedbackStatus(activity.id) === 'No respondida', 
         'feedback-waiting': getFeedbackStatus(activity.id) === 'Esperando corrección',
-        'result-waiting': getFeedbackStatus(activity.id) === 'Esperando resultado'
+        'result-waiting': getFeedbackStatus(activity.id) === 'Esperando respuesta'
       }"
         [ngStyle]="{'background-color': getSubjectColor(activity.id_subject), 'position': 'absolute','left': getActivityCoordinates(activity.id).x + '%','top': getActivityCoordinates(activity.id).y + '%','transform': 'translate(-50%, -50%)'}">
         <a [routerLink]="['/activityAlumno', activity.id]" class="activity-link">
           <img [src]="getSubjectImage(activity.id_subject)" alt="Logo" class="subject-photo">
 
-          <span class="hover-text">{{ getFeedbackStatus(activity.id) }}</span>
+          <span
+            *ngIf="getFeedbackStatus(activity.id) === 1 || getFeedbackStatus(activity.id) === 2 || getFeedbackStatus(activity.id) === 3; else noStars"
+            class="feedback-stars">
+            <span class="star-box">
+              <ng-container *ngFor="let i of [1, 2, 3]">
+                <span class="feedback-star" [ngClass]="{ 'filled-star': getFeedbackStatus(activity.id) >= i }">★</span>
+              </ng-container>
+            </span>
 
+          </span>
+
+          <ng-template #noStars>
+            <span class="hover-text">{{ getFeedbackStatus(activity.id) }}</span>
+          </ng-template>
         </a>
       </li>
       <ng-template #notAvailable>
-        <li class="activity-item-not-available" [ngStyle]="{
-              'background-color': 'gray',
-              'position': 'absolute', 
+        <li class="activity-not-available" [ngClass]="{
+              'activity-not-available-border': getFeedbackStatus(activity.id) === 'Actividad no disponible'
+            }" [ngStyle]="{
+              'background-color': 'lightgray',
+              'position': 'absolute',
               'left': getActivityCoordinates(activity.id).x + '%',
               'top': getActivityCoordinates(activity.id).y + '%',
               'transform': 'translate(-50%, -50%)'
             }">
-          <a> {{activity.name | uppercase}}</a>
+          <a>
+            <!-- Logo de la asignatura -->
+            <img [src]="getSubjectImage(activity.id_subject)" alt="Logo" class="subject-photo" />
+            <span class="hover-text">{{ getFeedbackStatus(activity.id) }}</span>
+          </a>
         </li>
       </ng-template>
+
     </ng-container>
   </ul>
 </div>

@@ -26,22 +26,24 @@ export class DashboardComponent {
   id_user: number = 0;
   sortedActivities: Activity[] = [];
   coordinates: any[] = [
-    { id: 1, x: 54, y: 20 },  // 1075px → 75% | 100px → 5%
-    { id: 2, x: 60, y: 35 }, 
-    { id: 3, x: 57, y: 50 }, 
-    { id: 4, x: 51, y: 65 },
-    { id: 5, x: 49, y: 80 },
-    { id: 6, x: 55, y: 95 },
-    { id: 7, x: 52, y: 110 },
-    { id: 8, x: 47, y: 125 },
-    { id: 9, x: 54, y: 140 },
-    { id: 10, x: 38, y: 155 },
-    { id: 11, x: 55, y: 200 },
+    { id: 1, x: 65, y: 40 },  // 1075px → 75% | 100px → 5%
+    { id: 2, x: 62, y: 55 }, 
+    { id: 3, x: 69, y: 70 }, 
+    { id: 4, x: 66, y: 85 },
+    { id: 5, x: 61, y: 100 },
+    { id: 6, x: 68, y: 115 },
+    { id: 7, x: 66, y: 130 },
+    { id: 8, x: 67, y: 145 },
+    { id: 9, x: 62, y: 160 },
+    { id: 10, x: 61, y: 175 },
+    { id: 11, x: 55, y: 190 },
     { id: 12, x: 70, y: 200 },
     { id: 13, x: 73, y: 200 },
     { id: 14, x: 55, y: 200 },
     { id: 15, x: 38, y: 200 }
   ];
+
+  showDropdown: boolean = false;
 
 
   constructor(private subjectService: SubjectService, private _activityService: ActivityService, private toastr: ToastrService, private router: Router, private _userService: UserService, private _processService: ProcessService) { }
@@ -151,7 +153,7 @@ export class DashboardComponent {
     return this.users.find(user => user.id === this.id_user)?.avatar;
   }
 
-  getFeedbackStatus(activityId: number): string {
+  getFeedbackStatus(activityId: number): any {
     const process = this.processes.find(
       (process) => process.id_activity === activityId && process.id_user === this.id_user
     );
@@ -160,12 +162,16 @@ export class DashboardComponent {
       (activity) => activity.id === activityId
     );
 
+    if (activity.available === 0) {
+      return 'Actividad no disponible';
+    }
+    
     if (process) {
-      if (process.feedback === 'Bien') {
-        return 'Bien';
+      if (process.feedback === 0) {
+        return 'Esperando corrección';
 
-      } else if (process.feedback === 'Mal') {
-        return 'Mal';
+      } else if (process.feedback === 1 || process.feedback === 2 || process.feedback === 3) {
+        return process.feedback;
 
       } else if (!process.feedback) {
         return 'Esperando corrección';
@@ -174,11 +180,11 @@ export class DashboardComponent {
 
     // Si no se encontró ningún proceso, pero la fecha límite aun no ha expirado, se sigue esperando a que el deadline termine para darla por mala
     else if (!process && !this.getTimeRemaining(activity.deadline).expired) {
-      return 'Esperando resultado';
+      return 'Esperando respuesta';
     }
 
     // Si no se encontró ningún proceso, y la fecha límite ha expirado, se da por mala
-    return 'Mal';
+    return 'No respondida';
   }
 
   getSubjectImage(subjectId: number): string {
@@ -217,6 +223,16 @@ export class DashboardComponent {
     );
   }
 
+  getTotalStars(): number {
+    const userProcesses = this.processes.filter(process => process.id_user === this.id_user);
+    return userProcesses.reduce((total, process) => total + (process.feedback || 0), 0);
+  }
+
+  logout() {
+    // Aquí puedes limpiar sesión si es necesario
+    this.router.navigate(['/login']);
+  }
+  
   goBack(): void {
     window.history.back(); // Navega a la página anterior
   }

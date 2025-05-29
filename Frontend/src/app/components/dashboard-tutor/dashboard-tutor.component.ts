@@ -61,7 +61,7 @@ export class DashboardTutorComponent implements OnInit {
     return user ? `${user.name} ${user.lastname}` : 'Usuario no encontrado';
   }
 
-  saveChanges(feedback: string, idActivity: number, idChild: number): void {
+  saveChanges(feedback: number, idActivity: number, idChild: number): void {
     const process: Process = {
       id_activity: idActivity,
       id_user: idChild,

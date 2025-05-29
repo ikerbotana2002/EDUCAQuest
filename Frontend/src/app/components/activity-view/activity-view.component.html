@@ -1,0 +1,56 @@
+<img src="assets/fondo2.jpeg" alt="Fondo" class="fondo-image">
+
+<div class="header">
+    <a (click)="goBack()">
+        <img src="assets/flecha-izquierda.png" alt="Logo" class="back-button">
+    </a>
+    <a [routerLink]="['/login']">
+        <img src="assets/Logo-sinfondo.png" alt="Logo" class="logo-photo">
+    </a>
+    <a [routerLink]="['/changeAvatar']">
+        <img [src]="'data:image/png;base64,' + getAvatar()" alt="Imagen de {{ getUserName() }}" class="user-avatar">
+    </a>
+    <span class="user-name">{{ getUserName() }}</span>
+    <span class="user-role">{{ getRolName() }}</span>
+</div>
+
+<ng-container *ngFor="let activity of activities" class="activity-container">
+    <div *ngIf="activity.id == activityId" class="activity-item">
+        <h2 [ngStyle]="{'color': getSubjectColor(activity.id_subject)}">
+            {{ getSubjectNameById(activity.id_subject) | uppercase }} <span
+                *ngIf="getSubjectDegreeById(activity.id_subject) !== 0">{{ getSubjectDegreeById(activity.id_subject)
+                }}º</span>
+        </h2>
+        <p>{{ activity.description }}</p>
+        <img [src]="'assets/activities/' + activity.name + '.png'" alt="Logo" class="activity-photo">
+    </div>
+</ng-container>
+
+<div class="search-container">
+    <input type="text" placeholder="Buscar alumnos..." class="search-bar" (input)="filterUsers($event)" />
+</div>
+
+<div class="filter-container mb-3">
+    <label for="userFilter" class="form-label fs-5">FILTRAR POR:</label>
+    <div class="input-group">
+        <select id="userFilter" class="form-select" [(ngModel)]="selectedUserFilter" (change)="filterUsersByResponse()">
+            <option value="all">Todos los usuarios</option>
+            <option value="responded">Usuarios que han respondido</option>
+        </select>
+    </div>
+</div>
+
+<div class="users-container row">
+    <div class="col-12 text-center mb-3">
+        <a [routerLink]="['/activity', activityId]" class="btn btn-primary">CORREGIR</a>
+    </div>
+    <ng-container *ngFor="let user of filteredUsers">
+        <div *ngIf="user.rol_id == 0" class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ user.name }} {{ user.lastname }}</h5>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

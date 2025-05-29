@@ -5,6 +5,8 @@ import { ActivityService } from '../../services/activity.service';
 import { TypesActivityService } from '../../services/type_activity.service';
 import { SubjectService } from '../../services/subject.service';
 import { UserService } from '../../services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-create-activity',
@@ -23,7 +25,8 @@ export class CreateActivityComponent {
     type: 0,
     deadline: '',
     photo: '',
-    num_fields: 1
+    num_fields: 1,
+    result: ''
   };
 
   activityTypes: any[] = [];
@@ -42,7 +45,8 @@ export class CreateActivityComponent {
     private subjectService: SubjectService,
     private router: Router,
     private toastr: ToastrService,
-    private userService: UserService
+    private userService: UserService,
+    private _matDialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -63,6 +67,35 @@ export class CreateActivityComponent {
     if (userIdString) {
       this.id_user = parseInt(userIdString, 10); // Asigna el id del usuario actual
     }
+  }
+
+  abrirModal() {
+    if (this.activity.name == '' || this.activity.description == '' || this.activity.id_subject == 0 || !this.activity.deadline || this.activity.type == 0) {
+      this.toastr.error('Todos los campos son obligatorios', 'Error');
+      return;
+    }
+
+    const subject = this.subjects.find((sub) => sub.id == this.activity.id_subject);
+
+
+
+    this._matDialog.open(ModalComponent, {
+      width: '800px',
+      height: '600px',
+      data: { 
+        name: this.activity.name,
+        description: this.activity.description,
+        id_subject: this.activity.id_subject,
+        available: this.activity.available,
+        type: this.activity.type,
+        deadline: this.activity.deadline,
+        photo: this.activity.photo,
+        num_fields: this.activity.num_fields,
+        result: this.activity.result, 
+        subject_name: subject.name,
+        subject_degree: subject.degree,
+      }
+      })
   }
 
   onSubmit(): void {
@@ -133,5 +166,9 @@ export class CreateActivityComponent {
         this.errorMessage = 'El archivo debe ser de 100 KB o menos.';
       }
     }
+  }
+
+  goBack(): void {
+    window.history.back(); // Navega a la página anterior
   }
 }

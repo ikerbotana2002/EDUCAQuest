@@ -1,0 +1,20 @@
+<div class="modal-container">
+  <div class="modal-content">
+    <h2>Detalles de la Actividad</h2>
+    <div class="data-list">
+      <p><strong>Nombre:</strong> {{ data.name }}</p>
+      <p><strong>Descripción:</strong> {{ data.description }}</p>
+      <p><strong>Asignatura:</strong> {{ data.subject_name }}</p>
+      <p><strong>Curso:</strong> {{ data.subject_degree }}</p>
+      <p><strong>Tipo:</strong> {{ data.type }}</p>
+      <p><strong>Fecha Límite:</strong> {{ data.deadline }}</p>
+      <p><strong>Número de Campos:</strong> {{ data.num_fields }}</p>
+      <div *ngIf="data.photo">
+        <p><strong>Imagen:</strong></p>
+        <img [src]="'data:image/png;base64,' + data.photo" alt="Imagen de {{ data.name }}" class="preview-image">
+      </div>
+    </div>
+    <button class="btn-close" (click)="closeModal()">Cerrar</button>
+    <button class="btn-close" (click)="onSubmit()">Crear</button>
+  </div>
+</div>

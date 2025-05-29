@@ -1,6 +1,11 @@
+<img src="assets/fondo2.jpeg" alt="Fondo" class="fondo-image">
+
 <div class="header">
+    <a (click)="goBack()">
+        <img src="assets/flecha-izquierda.png" alt="Logo" class="back-button">
+    </a>
     <a [routerLink]="['/login']">
-        <img src="assets/Logo.PNG" alt="Logo" class="logo-photo">
+        <img src="assets/Logo-sinfondo.png" alt="Logo" class="logo-photo">
     </a>
     <a [routerLink]="['/changeAvatar']">
         <img [src]="'data:image/png;base64,' + getAvatar()" alt="Imagen de {{ getUserName() }}" class="user-avatar">

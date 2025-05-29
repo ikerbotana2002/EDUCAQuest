@@ -29,8 +29,7 @@ export class ProcessService {
         return this.http.get<Process[]>(`${this.AppUrl}${this.APIUrl}/getProcesses`);
     }
 
-    updateFeedback(feedback: string, id_user: number, id_activity: number, additionalComment: string): Observable<any> {
-        console.log(feedback, id_user, id_activity, additionalComment);
+    updateFeedback(feedback: number, id_user: number, id_activity: number, additionalComment: string): Observable<any> {
         return this.http.patch(`${this.AppUrl}${this.APIUrl}/updateFeedback`, { feedback, id_user, id_activity, additionalComment });
     }
 }

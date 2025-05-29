@@ -8,12 +8,17 @@ body {
 }
 
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  width: 100%;
   background: #273644;
   padding: 15px;
   display: flex;
   align-items: center;
   border-bottom: 3px solid #273644;
-  position: relative;
+  justify-content: center; /* Centra horizontalmente los elementos */
 }
 
 .user-name {
@@ -67,7 +72,7 @@ body {
 /* Contenedor de actividades */
 .activities-container {
   max-width: 1000px;
-  margin: 40px auto;
+  margin: 100px auto;
   background: white;
   padding: 20px;
   border-radius: 10px;
@@ -75,6 +80,15 @@ body {
   position: relative; /* Asegúrate de que esté bien posicionado */
   z-index: 1; /* Asegura que esté encima del fondo */
 }
+
+
+.activities-container .card {
+  flex: 1 1 calc(33.333% - 15px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 
 /* Lista de actividades */
 .activity-list {
@@ -168,14 +182,19 @@ input:checked + .slider:before {
   align-items: center; /* Alinea verticalmente los elementos */
   justify-content: space-between; /* Espacia los elementos horizontalmente */
   gap: 20px; /* Espaciado entre el filtro y el botón */
-  margin-bottom: 20px; /* Espaciado inferior para separar del resto del contenido */
+  margin-bottom: 15px; /* Espaciado inferior para separar del resto del contenido */
+  margin-top: 20px; /* Añade un margen superior para moverlo hacia abajo */
 }
 
 .filter-container {
-  transform: translateX(-160px); /* Mueve el filtro 20px hacia la izquierda */
+  transform: translateX(-100px); /* Mueve el filtro 20px hacia la izquierda */
+  margin-top: -25px; /* Mueve el contenedor hacia arriba */
+
 }
 
 .sorter-container {
+  margin-top: -25px; /* Mueve el contenedor hacia arriba */
+
   flex: 1; /* Permite que el filtro ocupe más espacio si es necesario */
 }
 
@@ -184,7 +203,6 @@ input:checked + .slider:before {
   background: #0d6efd;
   transform: translateX(-100px); /* Mueve el filtro 20px hacia la izquierda */
   color: white; /* Cambia el color del texto */
-
 }
 
 .create-activity-container button:hover {
@@ -195,10 +213,10 @@ input:checked + .slider:before {
 
 /* Mensaje cuando no hay actividades */
 .no-activities-message {
+  margin: 100px auto;
   text-align: center;
   font-size: 18px;
   color: #757575;
-  margin-top: 20px;
 }
 
 .user-name {
@@ -243,3 +261,71 @@ input:checked + .slider:before {
   object-fit: cover; /* Asegúrate de que la imagen cubra todo el fondo */
   opacity: 0.4; /* Opcional: ajusta la opacidad para un efecto más suave */
 }
+
+.back-button {
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  width: 50px;
+  height: 50px;
+  transition: transform 0.3s ease-in-out;
+  position: absolute; /* Posiciona el botón de forma absoluta */
+  top: 15px; /* Ajusta la posición vertical */
+  left: 15px; /* Ajusta la posición horizontal */
+}
+
+.back-button:hover {
+  transform: scale(1.1); /* Aumenta ligeramente el tamaño */
+}
+
+.boton-reset {
+  background-color: #273644;
+  color: white;
+  border: none;
+  margin-left: 730px;
+  margin-top: 4px;
+}
+
+.boton-reset:hover {
+  background-color: #232f3a;
+}
+
+
+
+
+.list-view-item .card {
+  display: grid;
+  grid-template-columns: 180px 1fr 150px 160px 120px;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #E3F2FD;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.list-view-item .card * {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.list-view-item .card-header,
+.list-view-item .card-body {
+  padding: 0;
+  margin: 0;
+}
+
+.list-view-item .card .card-body {
+  display: contents; /* ¡Esto permite que los hijos se alineen directamente en el grid! */
+}
+
+
+
+/* Botones de vista */
+.view-toggle {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+

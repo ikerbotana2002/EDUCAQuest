@@ -5,17 +5,26 @@ body {
   color: #ffffff;
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* Evita el scroll horizontal */
+  overflow-x: hidden;          /* Sin scroll horizontal */
 
+}
+
+.fondo-image {
+  position: fixed; /* Fija la imagen al fondo */
+  top: 0;
+  left: 0;
+  width: 100%; /* Ocupa todo el ancho */
+  height: 100%; /* Ocupa todo el alto */
+  object-fit: cover; /* Asegúrate de que la imagen cubra todo el fondo */
+  opacity: 0.4; /* Opcional: ajusta la opacidad para un efecto más suave */
 }
 
 .background-image {
   display: flex;
-  justify-content: center;     /* Centrar horizontalmente */
+  justify-content: right;     /* Centrar horizontalmente */
   width: 100vw;                /* Ancho completo del contenedor */
-  overflow-x: hidden;          /* Sin scroll horizontal */
-  overflow-y: auto;            /* Scroll vertical si es necesario */
-  background-color: #ffffff;
+  z-index: 1; /* Asegura que esté por encima del fondo */
+  position: relative; /* Asegura que esté en una capa superior */
 }
 
 .background-image img {
@@ -25,14 +34,26 @@ body {
 }
 
 .header {
-  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  width: 100%;
   background: #273644;
   padding: 15px;
   display: flex;
   align-items: center;
   border-bottom: 3px solid #273644;
-  position: relative;
   justify-content: center; /* Centra horizontalmente los elementos */
+}
+
+h3 {
+  font-size: 20px; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
+}
+
+h4 {
+  font-size: 9px; /* Tamaño de fuente */
 }
 
 .user-name {
@@ -64,6 +85,19 @@ body {
   top: 15px;
   right: 10px; 
 }
+
+.user-avatar {
+  right: 50px;
+}
+
+.user-name {
+  right: 110px;
+}
+
+.user-role {
+  right: 110px;
+}
+
 
 .user-avatar:hover {
   transform: scale(1.1);
@@ -122,14 +156,7 @@ body {
   z-index: 1;
 }
 
-.activity-list .activity-item:hover {
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  transform: scale(1.6); /* Aumenta el tamaño */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  z-index: 2;
-}
-
-.activity-item-not-available {
+.activity-not-available {
   width: 60px;                /* Ancho fijo */
   height: 60px;               /* Alto fijo (igual al ancho) */
   border: 6px solid;           /* Borde */
@@ -141,53 +168,98 @@ body {
   display: flex;              /* Para centrar contenido */
   align-items: center;        /* Centra verticalmente */
   justify-content: center;    /* Centra horizontalmente */
-  font-size: 9px;
+  position: relative;
+  z-index: 1;
 }
+
+.activity-list .activity-item:hover .activity-not-available:hover {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.6); /* Aumenta el tamaño */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 2;
+}
+
 
 .hover-text {
   display: none;
   position: absolute;
-  top: 100%; /* Debajo del elemento */
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #000000;
-  color: #fff;
+  top: 50%;
+  left: 100%; /* Aparece a la derecha del icono */
+  transform: translateY(-50%);
+  background-color: white; /* Fondo blanco */
+  color: #333;
   padding: 5px 10px;
   border-radius: 5px;
   white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
   z-index: 10;
 }
+
 
 
 .activity-item:hover .hover-text {
   display: block;
 }
+.activity-not-available:hover .hover-text {
+  display: block;
+}
 
-.pending-activities {
-  position: absolute; /* Lo coloca sobre la imagen */
+.score {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
   top: 100px; /* Ajusta la posición vertical */
   left: 60px; /* Ajusta la posición horizontal */
   background: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para mejor visibilidad */
   padding: 15px;
   border-radius: 10px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-  width: 360px; /* Ajusta el ancho */
-  max-height: 300px; /* Limita la altura */
+  width: 320px; /* Ajusta el ancho */
+  max-height: 200px; /* Limita la altura */
   overflow-y: auto; /* Agrega scroll si hay muchas actividades */
 }
 
-.legend {
-  position: absolute; /* Lo coloca sobre la imagen */
-  top: 400px; /* Ajusta la posición vertical */
+.score-text {
+  font-size: 30px; /* Tamaño de fuente más grande */
+  color: #333; /* Color del texto (opcional) */
+  text-align: center; /* Centrado (opcional) */
+}
+
+.pending-activities {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  top: 250px; /* Ajusta la posición vertical */
   left: 60px; /* Ajusta la posición horizontal */
   background: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para mejor visibilidad */
   padding: 15px;
   border-radius: 10px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-  width: 360px; /* Ajusta el ancho */
-  max-height: 300px; /* Limita la altura */
+  width: 320px; /* Ajusta el ancho */
+  max-height: 200px; /* Limita la altura */
   overflow-y: auto; /* Agrega scroll si hay muchas actividades */
 }
+
+.legend {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */  
+  top: 440px;
+  left: 60px; /* Ajusta la posición horizontal */
+  background: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para mejor visibilidad */
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  width: 320px; /* Ajusta el ancho */
+  max-height: 200px; /* Limita la altura */
+  overflow-y: auto; /* Agrega scroll si hay muchas actividades */
+}
+
+
 
 .legend-list {
   list-style: none; /* Elimina los puntos de la lista */
@@ -243,19 +315,43 @@ body {
 
 /* Fecha límite */
 .feedback-bad {
-  border-color: #D32F2F;
+  border: 1px solid #ffffff; /* borde verde real */
+
+  box-shadow:
+    0 0 0 2px white,         /* anillo blanco interior */
+    0 0 0 10px #D32F2F;      /* anillo verde intermedio */
 }
 
 .feedback-good {
-  border-color: #388E3C;
+  border: 1px solid #388E3C; /* borde verde real */
+
+  box-shadow:
+    0 0 0 2px white,         /* anillo blanco interior */
+    0 0 0 10px #388E3C;      /* anillo verde intermedio */
 }
 
 .feedback-waiting {
-  border-color: #777503;
+  border: 1px solid #ffffff; /* borde verde real */
+
+  box-shadow:
+    0 0 0 2px white,         /* anillo blanco interior */
+    0 0 0 10px #777503;      /* anillo verde intermedio */
 }
 
 .result-waiting {
-  border-color: #fffb12
+  border: 1px solid #000000; /* borde verde real */
+
+  box-shadow:
+    0 0 0 2px rgb(0, 0, 0),         /* anillo blanco interior */
+    0 0 0 10px #fffb12;      /* anillo verde intermedio */
+}
+
+.activity-not-available-border {
+  border: 1px solid #ffffff; /* borde verde real */
+
+  box-shadow:
+    0 0 0 2px white,         /* anillo blanco interior */
+    0 0 0 10px #2b2e2a;      /* anillo verde intermedio */
 }
 
 /* Mensaje cuando no hay actividades */
@@ -280,17 +376,167 @@ body {
 
 
 .back-button {
-  position: absolute;
-  left: 10px; /* Ajusta la posición horizontal */
-  top: 50%; /* Centra verticalmente */
-  transform: translateY(-50%); /* Ajusta el centrado vertical */
-  background: none; /* Sin fondo */
-  border: none; /* Sin borde */
-  font-size: 20px; /* Tamaño de la flecha */
-  color: white; /* Color de la flecha */
   cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  width: 50px;
+  height: 50px;
+  transition: transform 0.3s ease-in-out;
+  position: absolute; /* Posiciona el botón de forma absoluta */
+  top: 15px; /* Ajusta la posición vertical */
+  left: 15px; /* Ajusta la posición horizontal */
 }
 
 .back-button:hover {
-  color: #ccc; /* Cambia el color al pasar el cursor */
+  transform: scale(1.1); /* Aumenta ligeramente el tamaño */
+}
+
+.fondo-image {
+  position: fixed; /* Fija la imagen al fondo */
+  top: 0;
+  left: 0;
+  width: 100%; /* Ocupa todo el ancho */
+  height: 100%; /* Ocupa todo el alto */
+  object-fit: cover; /* Asegúrate de que la imagen cubra todo el fondo */
+  opacity: 0.4; /* Opcional: ajusta la opacidad para un efecto más suave */
+}
+
+
+.star-box {
+  position: absolute;
+  right: -100px; /* más a la derecha */
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 5px 10px;
+  border-radius: 8px;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  gap: 4px;
+}
+
+.feedback-star {
+  font-size: 24px;
+  color: lightgray;
+}
+
+.filled-star {
+  color: gold;
+}
+
+.legend-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.legend-icon img {
+  width: 20px;
+  height: 20px;
+}
+
+
+.bandera-inicio {
+  width: 100px;
+  height: auto;
+  position: absolute;
+  z-index: 5;
+  transform: translate(-50%, -50%);
+}
+
+.bandera-fin {
+  width: 100px;
+  height: auto;
+  position: absolute;
+  z-index: 5;
+  transform: translate(-50%, -50%);
+}
+
+
+.logout-button {
+  position: absolute;
+  top: 45px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.logout-icon {
+  width: 26px;
+  height: 26px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.logout-icon:hover {
+  transform: scale(1.1);
+}
+
+
+.avatar-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 140px;
+}
+
+.avatar-dropdown a {
+  text-decoration: none;
+  color: #333;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.avatar-dropdown a:hover {
+  background-color: #f0f0f0;
+}
+
+.legend-feedback-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.legend-feedback-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 10px;
+}
+
+.legend-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+}
+
+.feedback-legend-good    { background-color: #388E3C; }
+.feedback-legend-bad     { background-color: #D32F2F; }
+.feedback-legend-waiting { background-color: #777503; }
+.feedback-legend-response { background-color: #fffb12; }
+.feedback-legend-unavailable { background-color: #2b2e2a; }
+
+
+.legend-icon-ring::after {
+  content: '';
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: white;
+  display: block;
 }

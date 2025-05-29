@@ -7,4 +7,5 @@ export interface Activity {
     deadline: string;
     photo: string;
     num_fields: number;
+    result: string;
 }

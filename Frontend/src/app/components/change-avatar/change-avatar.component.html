@@ -1,6 +1,9 @@
 <div class="header">
+    <a (click)="goBack()">
+        <img src="assets/flecha-izquierda.png" alt="Logo" class="back-button">
+    </a>
     <a [routerLink]="['/login']">
-        <img src="assets/Logo.PNG" alt="Logo" class="logo-photo">
+        <img src="assets/Logo-sinfondo.png" alt="Logo" class="logo-photo">
     </a>
     <a [routerLink]="['/changeAvatar']">
         <img [src]="'data:image/png;base64,' + getAvatar()" alt="Imagen de {{ getUserName() }}" class="user-avatar">
@@ -8,7 +11,6 @@
     <span class="user-name">{{ getUserName() }}</span>
     <span class="user-role">{{ getRolName() }}</span>
 </div>
-
 
 <div class="upload-container">
     <h2>CAMBIAR AVATAR</h2>
@@ -20,4 +22,5 @@
         <button type="submit" class="button">Subir</button>
     </form>
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
 </div>

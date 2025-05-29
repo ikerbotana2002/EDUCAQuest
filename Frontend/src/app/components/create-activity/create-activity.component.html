@@ -1,13 +1,16 @@
 <div class="header">
+    <a (click)="goBack()">
+      <img src="assets/flecha-izquierda.png" alt="Logo" class="back-button">
+    </a>
     <a [routerLink]="['/login']">
-        <img src="assets/Logo.PNG" alt="Logo" class="logo-photo">
+      <img src="assets/Logo-sinfondo.png" alt="Logo" class="logo-photo">
     </a>
     <a [routerLink]="['/changeAvatar']">
-        <img [src]="'data:image/png;base64,' + getAvatar()" alt="Imagen de {{ getUserName() }}" class="user-avatar">
+      <img [src]="'data:image/png;base64,' + getAvatar()" alt="Imagen de {{ getUserName() }}" class="user-avatar">
     </a>
     <span class="user-name">{{ getUserName() }}</span>
     <span class="user-role">{{ getRolName() }}</span>
-</div>
+  </div>
 
 <div class="wrapper">
     <div class="body">
@@ -63,7 +66,7 @@
                 </div>
 
                 <div class="d-grid gap-2">
-                    <button class="btn btn-primary" (click)="onSubmit()" type="button">Crear Actividad</button>
+                    <button class="btn btn-primary" (click)="abrirModal()" type="button">Crear Actividad</button>
                 </div>
             </div>
         </div>

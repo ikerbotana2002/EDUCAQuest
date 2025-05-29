@@ -9,6 +9,7 @@ import { UserService } from '../../services/user.service';
 import { ProcessService } from '../../services/process.service';
 import { ActivatedRoute } from '@angular/router';
 import { SubjectService } from '../../services/subject.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-activity-alumno',
@@ -35,10 +36,15 @@ export class ActivityAlumnoComponent {
   //result: string = '';
   result: string[] = [];
 
-  constructor(private subjectService: SubjectService, private _activityService: ActivityService, private toastr: ToastrService, private router: Router, private _userService: UserService, private _processService: ProcessService, private activatedRoute: ActivatedRoute) {}
+  youtubeLink!: SafeResourceUrl;
+
+  constructor(private sanitizer: DomSanitizer, private subjectService: SubjectService, private _activityService: ActivityService, private toastr: ToastrService, private router: Router, private _userService: UserService, private _processService: ProcessService, private activatedRoute: ActivatedRoute) {}
 
   
   ngOnInit(): void {
+
+    //const rawUrl = 'https://www.youtube.com/embed/DasATN8Zr3I?si=ONR2ZjgYsHahDzNv';
+    //this.youtubeLink = this.sanitizer.bypassSecurityTrustResourceUrl(rawUrl);
 
     const userIdString = localStorage.getItem('user_id');
     if (userIdString) {
@@ -51,6 +57,11 @@ export class ActivityAlumnoComponent {
 
     this._activityService.getActivities().subscribe((data) => {
       this.activities = data;
+      const activityActual = this.activities.find(act => act.id == this.activityId);
+      const rawUrl = activityActual.photo;
+      this.youtubeLink = this.sanitizer.bypassSecurityTrustResourceUrl(rawUrl);
+
+
     });
 
     this._processService.getProcesses().subscribe((data) => {
@@ -64,7 +75,6 @@ export class ActivityAlumnoComponent {
     this.actualRoute = this.activatedRoute.snapshot.url.map(segment => segment.path).join('/');
     this.activityId = this.actualRoute.split('/').pop(); // para obtener el id de la actividad (extraido de la ruta)
 
-    console.log(this.activities);
   }
 
   saveString(): void {
@@ -82,14 +92,14 @@ export class ActivityAlumnoComponent {
       id_activity: this.activityId,
       id_user: this.id_user,
       result: formattedResults,
-      feedback: '',
+      feedback: 0,
       additionalComment: '',
     };
 
     this._processService.saveProcess(process).subscribe({
       next: (v) => {
         this.toastr.success(`Actividad completada, esperando corrección...`, '');
-        this.router.navigate(['/login']);
+        this.router.navigate(['/dashboard']);
       },
       error: (e: HttpErrorResponse) => {
         if (e.error.message) {
@@ -187,6 +197,7 @@ export class ActivityAlumnoComponent {
       return firstLetter + secondLetter;
     }
   }
+  
 
   goBack(): void {
     window.history.back(); // Navega a la página anterior

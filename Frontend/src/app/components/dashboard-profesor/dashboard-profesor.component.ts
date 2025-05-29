@@ -31,6 +31,9 @@ export class DashboardProfesorComponent {
   selectedSubject: string = ''; // Variable para almacenar la asignatura seleccionada
   allActivities: any[] = [];
 
+  isListView = false;
+
+
   constructor(
     private subjectService: SubjectService,
     private typesActivityService: TypesActivityService,
@@ -74,6 +77,11 @@ export class DashboardProfesorComponent {
   getSubjectNameById(id: number): string {
     const subject = this.subjects.find((sub) => sub.id === id);
     return subject ? subject.name : '';
+  }
+
+  getSubjectDegreeById(id: number): number | string {
+    const subject = this.subjects.find((sub) => sub.id === id);
+    return subject ? subject.degree : 'Grado no encontrado';
   }
 
   getSubjectColor(id: number): string {
@@ -165,9 +173,7 @@ export class DashboardProfesorComponent {
 
   getCompletionPercentage(activityId: number): number {
     const completedProcesses = this.processes.filter(process => process.id_activity === activityId).length;
-    console.log('completedProcesses', completedProcesses);
     const totalStudents = this.users.filter(user => user.rol_id === 0).length; // Asumiendo que rol_id = 0 es para alumnos
-    console.log('totalStudents', totalStudents);
 
     return totalStudents > 0 ? Math.round((completedProcesses / totalStudents) * 100) : 0;
   }
@@ -182,4 +188,15 @@ export class DashboardProfesorComponent {
     }
     this.activities = this.sortedActivities; //para que si quieres ordenar te salgan solo las que has filtrado y no todas de nuevo
   }
+
+  resetActivities(): void {
+    this.activities = [...this.allActivities]; // Restaura todas las actividades
+    this.sortedActivities = [...this.allActivities]; // Asegura que también se actualicen las actividades ordenadas
+  }
+  
+  goBack(): void {
+    window.history.back(); // Navega a la página anterior
+  }
 }
+
+

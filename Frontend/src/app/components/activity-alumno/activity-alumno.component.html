@@ -1,31 +1,41 @@
 <div class="header">
-  <button class="back-button" (click)="goBack()">
-    &#8592; <!-- Flecha hacia la izquierda -->
-  </button>
+  <a (click)="goBack()">
+    <img src="assets/flecha-izquierda.png" alt="Logo" class="back-button">
+  </a>
   <a [routerLink]="['/login']">
-    <img src="assets/Logo.PNG" alt="Logo" class="logo-photo">
+    <img src="assets/Logo-sinfondo.png" alt="Logo" class="logo-photo">
   </a>
   <a [routerLink]="['/changeAvatar']">
     <img [src]="'data:image/png;base64,' + getAvatar()" alt="Imagen de {{ getUserName() }}" class="user-avatar">
   </a>
   <span class="user-name">{{ getUserName() }}</span>
   <span class="user-role">{{ getRolName() }}</span>
-</div>                  
-
-
+</div>              
 
 
 <div class="activity-container" *ngIf="activities.length > 0; else noActivities">
   <ul class="activity-list">
     <ng-container *ngFor="let activity of activities">
       <li *ngIf="activity.id == activityId" class="activity-item">
+        <!-- Estrellas de feedback grandes -->
+        <ng-container *ngFor="let process of processes">
+          <div *ngIf="process.id_activity === activity.id && process.id_user === id_user" class="star-feedback">
+            <ng-container *ngFor="let star of [1,2,3]">
+              <span [ngClass]="{'filled-star': star <= process.feedback, 'empty-star': star > process.feedback}">★</span>
+            </ng-container>
+          </div>
+        </ng-container>
+
         <div class="activity-header">
           <h2>{{ activity.name | uppercase }} - {{ activity.description }}</h2>
           <p class="subject" [ngStyle]="{'color': getSubjectColor(activity.id_subject)}">{{
             subjects[activity.id_subject]?.name }}</p>
         </div>
-        <img *ngIf="activity.photo" [src]="'data:image/png;base64,' + activity.photo"
-          alt="Imagen de {{ activity.name }}" class="activity-photo">
+        <img [src]="'assets/activities/' + activity.name + '.png'" alt="Logo" class="activity-photo">
+        
+        <ng-container *ngIf="activity.photo">
+          <iframe width="420" height="236" [src]="youtubeLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </ng-container>
 
         <div class="activity-body">
           <p><strong>Curso:</strong> {{ subjects[activity.id_subject - 1]?.degree }}</p> 
@@ -37,15 +47,15 @@
         <div class="activity-footer">
           <ul class="process-list">
             <ng-container *ngFor="let process of processes">
-              <li *ngIf="process.id_activity === activity.id && process.id_user === id_user" class="process-item">
-                <p><strong>Corrección de la actividad:</strong> {{ process.feedback }}</p>
+              <li *ngIf="process.id_activity === activity.id && process.id_user === id_user;" class="process-item">
                 <p><strong>Comentario:</strong> {{ process.additionalComment }}</p>
                 <p><strong>Tu respuesta:</strong> {{ process.result }}</p>
               </li>
             </ng-container>
           </ul>
-
+          
           <div class="result-container">
+
             <div class="scrollable-results">
               <ng-container *ngFor="let i of [].constructor(activity.num_fields); let index = index">
                 <div class="form-floating mb-2 col">

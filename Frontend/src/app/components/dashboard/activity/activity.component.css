@@ -1,5 +1,6 @@
 /* Estilos generales */
 body {
+  margin-top: 120px;
   margin: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
@@ -10,18 +11,16 @@ body {
 
 .header {
   position: fixed;
-  top: 0;  /* Se fijará 10px desde la parte superior */
-  margin-bottom: 20px; /* Ajusta según sea necesario */
- 
-  left: 0; /* Asegura que esté alineado al borde izquierdo */
-  width: 100%; /* Ocupa todo el ancho de la pantalla */
+  top: 0;
+  left: 0;
   z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  width: 100%;
   background: #273644;
   padding: 15px;
   display: flex;
   align-items: center;
   border-bottom: 3px solid #273644;
-  position: relative;
+  justify-content: center; /* Centra horizontalmente los elementos */
 }
 
 .user-name {
@@ -74,37 +73,28 @@ body {
   max-height: 300px;
 }
 
-/* Contenedor de actividades */
-.activities-container {
-  max-width: 800px;
-  margin: 40px auto;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  
-}
 
 /* Cada actividad */
 .activity-item {
+  top: 200px;
+  left: 100px;
   border: 2px solid #ddd;
   border-radius: 8px;
-  margin-bottom: 20px;
   padding: 20px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  position: relative; /* Asegúrate de que esté bien posicionado */
-  z-index: 1; /* Asegura que esté encima del fondo */
+  position: fixed; /* Asegúrate de que esté bien posicionado */
+  z-index: 1000; /* Asegura que esté encima del fondo */
   background: white;
   width: 500px;
   text-align: center; /* Centra el texto dentro de los elementos */
   max-width: 800px;
-  margin: 40px auto;
 }
 
 /* Contenedor de usuarios */
 .users-container {
+  top: 150px;
+  left: 700px;
   max-width: 800px;
-  margin: 40px auto;
   background: white;
   padding: 20px;
   border-radius: 10px;
@@ -194,3 +184,89 @@ body {
   padding: 20px;
 }
 
+.search-container {
+  z-index: 10; /* Asegúrate de que esté por encima del fondo */
+  position: relative; /* Asegura que el contenedor esté correctamente posicionado */
+  top: 130px;
+  left: 700px; /* Ajusta la posición horizontal */
+  width: 800px;
+  text-align: center;
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+
+.filter-container {
+  top: 550px;
+  left: 150px;
+  z-index: 1; /* Asegúrate de que esté por encima del fondo */
+  position: fixed; /* Posiciona el contenedor correctamente */
+  text-align: center; /* Centra el contenido horizontalmente */
+  width: 100%;
+  max-width: 400px; /* Ancho máximo similar al de la barra de búsqueda */
+  padding: 10px; /* Espaciado interno */
+  font-size: 16px; /* Tamaño de fuente */
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #fff; /* Fondo blanco */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.filter-container .form-select {
+  width: 100%; /* Asegúrate de que el select ocupe todo el ancho */
+  padding: 10px; /* Espaciado interno */
+  font-size: 16px; /* Tamaño de fuente */
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 5px; /* Bordes redondeados */
+  outline: none; /* Elimina el borde azul al hacer clic */
+}
+
+.filter-container .form-select:focus {
+  border-color: #007bff; /* Cambia el color del borde al hacer foco */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra azul */
+}
+
+.back-button {
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  width: 50px;
+  height: 50px;
+  transition: transform 0.3s ease-in-out;
+  position: absolute; /* Posiciona el botón de forma absoluta */
+  top: 15px; /* Ajusta la posición vertical */
+  left: 15px; /* Ajusta la posición horizontal */
+}
+
+.back-button:hover {
+  transform: scale(1.1); /* Aumenta ligeramente el tamaño */
+}
+
+.btn-primary {
+  background-color: #ffffff; /* Fondo blanco */
+  color: #000000; /* Texto azul */
+  border: 1px solid #000000; /* Borde azul */
+  padding: 10px 10px; /* Espaciado interno */
+  font-size: 22px; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
+  border-radius: 5px; /* Bordes redondeados */
+  text-align: center; /* Centra el texto */
+  text-decoration: none; /* Elimina el subrayado */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+  width: auto;
+  display: block; /* Asegura que el botón sea un bloque */
+  margin: 0 auto; /* Centra horizontalmente el botón */
+  width: 200px;
+}
+
+.btn-primary:hover {
+  background-color: #000000bb; /* Fondo azul al pasar el cursor */
+  color: #ffffff; /* Texto blanco al pasar el cursor */
+}

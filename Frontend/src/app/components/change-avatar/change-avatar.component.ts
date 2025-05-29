@@ -102,5 +102,10 @@ export class ChangeAvatarComponent {
 
   getAvatar(): string | undefined {
     return this.users.find(user => user.id === this.id_user)?.avatar;
-  }  
+  }
+  
+  goBack(): void {
+    window.history.back(); // Navega a la página anterior
+  }
+
 }

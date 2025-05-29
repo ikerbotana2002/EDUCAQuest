@@ -38,4 +38,12 @@ export class UserService {
   updateAvatar(archivo: string, id_user: Number): Observable<any> {
     return this.http.patch(`${this.AppUrl}${this.APIUrl}/updateAvatar`, { archivo, id_user });
   }
+
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post(`${this.AppUrl}${this.APIUrl}/forgotPassword`, { email });
+  }
+
+  resetPassword(password: string, token: string): Observable<any> {
+    return this.http.patch(`${this.AppUrl}${this.APIUrl}/resetPassword`, { password, token });
+  }
 }
