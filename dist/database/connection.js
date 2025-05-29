@@ -5,10 +5,13 @@ const sequelize_1 = require("sequelize");
     host: "localhost",
     dialect: "mysql"
 });*/
-const sequelize = new sequelize_1.Sequelize("railway", "root", "YMQKexHOTzYDAkmoUhVMuHjdQWOjVefn", {
-    host: "containers-us-west-xx.railway.app",
-    port: Number(3306),
-    dialect: 'mysql',
+const sequelize = new sequelize_1.Sequelize("railway", // DB_NAME
+"root", // DB_USER
+"YMQKexHOTzYDAkmoUhVMuHjdQWOjVefn", // DB_PASSWORD
+{
+    host: "caboose.proxy.rlwy.net", // DB_HOST (público)
+    port: 21134, // puerto correcto
+    dialect: "mysql",
     logging: false,
 });
 exports.default = sequelize;
