@@ -5,14 +5,15 @@ import { Sequelize } from "sequelize";
     dialect: "mysql"
 });*/
 
+
 const sequelize = new Sequelize(
-  "railway",
-  "root",
-  "YMQKexHOTzYDAkmoUhVMuHjdQWOjVefn",
+  "railway", // DB_NAME
+  "root",    // DB_USER
+  "YMQKexHOTzYDAkmoUhVMuHjdQWOjVefn", // DB_PASSWORD
   {
-    host: "containers-us-west-xx.railway.app",
-    port: Number(3306),
-    dialect: 'mysql',
+    host: "caboose.proxy.rlwy.net", // DB_HOST (público)
+    port: 21134,                    // puerto correcto
+    dialect: "mysql",
     logging: false,
   }
 );
