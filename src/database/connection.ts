@@ -10,7 +10,7 @@ const sequelize = new Sequelize(
   "root",
   "YMQKexHOTzYDAkmoUhVMuHjdQWOjVefn",
   {
-    host: "mysql.railway.internal",
+    host: "containers-us-west-xx.railway.app",
     port: Number(3306),
     dialect: 'mysql',
     logging: false,
