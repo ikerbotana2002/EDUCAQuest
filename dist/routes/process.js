@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const process_1 = require("../controllers/process");
+const router = (0, express_1.Router)();
+router.post("/api/process/register", process_1.register);
+router.post("/api/process/registerHomeActivityProcess", process_1.registerHomeActivityProcess);
+router.get("/api/process/getProcesses", process_1.getProcesses);
+router.patch("/api/process/updateFeedback", process_1.updateFeedback);
+exports.default = router;
