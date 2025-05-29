@@ -19,7 +19,7 @@ export const register = async (req: Request, res: Response): Promise<any> => {
     Process.create({
         id_activity: id_activity,
         id_user: id_user,
-        feedback: "",
+        feedback: 0,
         result: result,
         status: 1,
     });

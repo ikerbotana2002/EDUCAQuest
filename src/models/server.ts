@@ -1,4 +1,7 @@
 import express, { Application } from 'express';
+import path from 'path';
+import cors from 'cors';
+
 import sequelize from '../database/connection';
 import RUser from '../routes/user';
 import RActivity from '../routes/activity';
@@ -6,6 +9,7 @@ import RProcess from '../routes/process';
 import RType_activity from '../routes/type_activity';
 import RSubjects from '../routes/subject';
 import RChildren from '../routes/child';
+
 import { User } from './user';
 import { Activity } from './activity';
 import { Process } from './process';
@@ -15,29 +19,27 @@ import { Subjects_for_teacher } from './subjects_for_teacher';
 import { Rol } from './rol';
 import { Children } from './children';
 
-import cors from 'cors';
-
 class Server {
-    
     private app: Application;
     private port: string;
-    
+
     constructor() {
         this.app = express();
         this.port = process.env.PORT || '3017';
-        this.listen();
-        this.midlewares();
-        this.router();
-        this.DBconnect();
+        this.middlewares();    // Primero middlewares
+        this.router();         // Luego rutas API
+        this.spaRouting();     // Luego catch-all para Angular
+        this.listen();         // Luego arranca el servidor
+        this.DBconnect();      // Finalmente conecta BBDD
     }
 
-    listen() {
+    private listen() {
         this.app.listen(this.port, () => {
-            console.log("El servidor esta en el puerto: " + this.port);
+            console.log("El servidor está en el puerto: " + this.port);
         });
     }
 
-    router() {
+    private router() {
         this.app.use(RUser);
         this.app.use(RActivity);
         this.app.use(RProcess);
@@ -46,15 +48,25 @@ class Server {
         this.app.use(RChildren);
     }
 
-    midlewares() {
+    private middlewares() {
         this.app.use(express.json());
         this.app.use(cors());
+
+        // Servir archivos estáticos del frontend Angular
+        this.app.use(express.static(path.join(__dirname, '../public')));
     }
 
-    async DBconnect() {
+    private spaRouting() {
+        // Redirigir cualquier otra ruta a index.html de Angular
+        this.app.get('*', (req, res) => {
+            res.sendFile(path.join(__dirname, '../public/index.html'));
+        });
+    }
+
+    private async DBconnect() {
         try {
             // await sequelize.authenticate();
-            await User.sync(); // Se crea la tabla en la base de datos
+            await User.sync();
             await Activity.sync();
             await Process.sync();
             await Type_activity.sync();
@@ -64,10 +76,9 @@ class Server {
             await Children.sync();
             console.log("Conexión Exitosa");
         } catch (error) {
-            console.log("Error en la conexion a la base de datos, " + error);  
+            console.log("Error en la conexión a la base de datos, " + error);
         }
     }
 }
 
 export default Server;
-

@@ -22,7 +22,7 @@ export const Process = sequelize.define(
             allowNull: false
         },
         feedback: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: true
         },
         additionalComment: {

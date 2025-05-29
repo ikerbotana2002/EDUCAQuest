@@ -4,7 +4,7 @@ import { Activity } from "../models/activity";
 
 export const registerActivity = async (req: Request, res: Response): Promise<any> => {
 
-    const { name, description, id_subject, type, available, deadline, photo, num_fields } = req.body;
+    const { name, description, id_subject, type, available, deadline, photo, num_fields, result } = req.body;
     
     const activity = await Activity.findOne({ where: { name: name } });
 
@@ -24,6 +24,7 @@ export const registerActivity = async (req: Request, res: Response): Promise<any
             deadline: deadline,
             photo: photo,
             num_fields: num_fields,
+            result: result,
             status: 1,
         });
 

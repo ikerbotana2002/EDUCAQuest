@@ -41,6 +41,10 @@ export const Activity = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false
         },
+        result: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         status: {
             type: DataTypes.INTEGER,
             allowNull: false
