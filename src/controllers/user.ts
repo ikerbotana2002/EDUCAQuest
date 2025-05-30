@@ -32,6 +32,8 @@ export const register = async (req: Request, res: Response): Promise<any> => {
             rol_id: rol_id,
             avatar: avatar,
             status: 1,
+            degree: 0,
+            selectedSubjects: ""
         });
 
         res.json({
@@ -95,7 +97,7 @@ export const getUsers = async (req: Request, res: Response) => {
 
 
 export const updateRol = async (req: Request, res: Response): Promise<any> => {
-    const { newRol, email } = req.body;
+    const { newRol, email, degree } = req.body;
 
     try {
         // Buscar el usuario por email
@@ -108,8 +110,13 @@ export const updateRol = async (req: Request, res: Response): Promise<any> => {
             });
         }
 
-        // Actualizar el rol del usuario
-        user.rol_id = newRol; // Asignar el nuevo rol
+        if (newRol) {
+            user.rol_id = newRol; // Asignar el nuevo rol
+        }
+
+        if (degree) {
+            user.degree = degree; // Actualizar el grado
+        }
 
         // Guardar los cambios en la base de datos
         await user.save();
@@ -218,7 +225,7 @@ export const resetPassword = async (req: Request, res: Response): Promise<any> =
         const decoded: any = jwt.verify(token, process.env.SECRET_KEY || 'claveFallback');
         const email = decoded.email;
 
-       
+
         // Buscar el usuario por email
         const user: any = await User.findOne({ where: { email } });
 

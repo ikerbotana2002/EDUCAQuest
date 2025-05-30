@@ -34,6 +34,14 @@ export const User = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false
         },
+        degree: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        selectedSubjects: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         status: {
             type: DataTypes.INTEGER,
             allowNull: false

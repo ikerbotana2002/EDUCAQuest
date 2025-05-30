@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../database/connection";
 
-export const Subjects_for_teacher = sequelize.define(
-    'Subjects_for_teacher',
+export const SubjectsForTeachers = sequelize.define(
+    'Subjects_for_teachers',
     {
         id: {
             type: DataTypes.INTEGER,
@@ -17,5 +17,9 @@ export const Subjects_for_teacher = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false
         },
+    },
+    {
+        tableName: 'subjects_for_teachers', // Asegúrate de que el nombre de la tabla sea correcto
+        timestamps: false
     }
 )

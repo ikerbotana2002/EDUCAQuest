@@ -37,6 +37,14 @@ exports.User = connection_1.default.define('User', {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false
     },
+    degree: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: false
+    },
+    selectedSubjects: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false
+    },
     status: {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false

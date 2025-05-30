@@ -36,6 +36,8 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             rol_id: rol_id,
             avatar: avatar,
             status: 1,
+            degree: 0,
+            selectedSubjects: ""
         });
         res.json({
             msg: `User ${name} ${lastname} create success...`
@@ -80,7 +82,7 @@ const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getUsers = getUsers;
 const updateRol = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { newRol, email } = req.body;
+    const { newRol, email, degree } = req.body;
     try {
         // Buscar el usuario por email
         const user = yield user_1.User.findOne({ where: { email: email } });
@@ -90,8 +92,12 @@ const updateRol = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 msg: `Usuario no existe con el email ${email}`
             });
         }
-        // Actualizar el rol del usuario
-        user.rol_id = newRol; // Asignar el nuevo rol
+        if (newRol) {
+            user.rol_id = newRol; // Asignar el nuevo rol
+        }
+        if (degree) {
+            user.degree = degree; // Actualizar el grado
+        }
         // Guardar los cambios en la base de datos
         yield user.save();
         // Responder con éxito

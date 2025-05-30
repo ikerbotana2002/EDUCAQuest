@@ -21,12 +21,13 @@ const process_1 = __importDefault(require("../routes/process"));
 const type_activity_1 = __importDefault(require("../routes/type_activity"));
 const subject_1 = __importDefault(require("../routes/subject"));
 const child_1 = __importDefault(require("../routes/child"));
+const subjects_for_teachers_1 = __importDefault(require("../routes/subjects_for_teachers"));
 const user_2 = require("./user");
 const activity_2 = require("./activity");
 const process_2 = require("./process");
 const type_activity_2 = require("./type_activity");
 const subjects_1 = require("./subjects");
-const subjects_for_teacher_1 = require("./subjects_for_teacher");
+const subjects_for_teachers_2 = require("./subjects_for_teachers");
 const rol_1 = require("./rol");
 const children_1 = require("./children");
 class Server {
@@ -51,6 +52,7 @@ class Server {
         this.app.use(type_activity_1.default);
         this.app.use(subject_1.default);
         this.app.use(child_1.default);
+        this.app.use(subjects_for_teachers_1.default);
     }
     middlewares() {
         this.app.use(express_1.default.json());
@@ -73,9 +75,9 @@ class Server {
                 yield process_2.Process.sync();
                 yield type_activity_2.Type_activity.sync();
                 yield subjects_1.Subjects.sync();
-                yield subjects_for_teacher_1.Subjects_for_teacher.sync();
                 yield rol_1.Rol.sync();
                 yield children_1.Children.sync();
+                yield subjects_for_teachers_2.SubjectsForTeachers.sync();
                 console.log("Conexión Exitosa");
             }
             catch (error) {

@@ -9,13 +9,14 @@ import RProcess from '../routes/process';
 import RType_activity from '../routes/type_activity';
 import RSubjects from '../routes/subject';
 import RChildren from '../routes/child';
+import RSubjectsForTeachers from '../routes/subjects_for_teachers';
 
 import { User } from './user';
 import { Activity } from './activity';
 import { Process } from './process';
 import { Type_activity } from './type_activity';
 import { Subjects } from './subjects';
-import { Subjects_for_teacher } from './subjects_for_teacher';
+import { SubjectsForTeachers } from './subjects_for_teachers';
 import { Rol } from './rol';
 import { Children } from './children';
 
@@ -46,6 +47,7 @@ class Server {
         this.app.use(RType_activity);
         this.app.use(RSubjects);
         this.app.use(RChildren);
+        this.app.use(RSubjectsForTeachers);
     }
 
     private middlewares() {
@@ -71,9 +73,9 @@ class Server {
             await Process.sync();
             await Type_activity.sync();
             await Subjects.sync();
-            await Subjects_for_teacher.sync();
             await Rol.sync();
             await Children.sync();
+            await SubjectsForTeachers.sync();
             console.log("Conexión Exitosa");
         } catch (error) {
             console.log("Error en la conexión a la base de datos, " + error);

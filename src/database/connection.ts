@@ -1,11 +1,11 @@
 import { Sequelize } from "sequelize";
 
-/*const sequelize = new Sequelize("educa_quest" , "root", "4236", {
+const sequelize = new Sequelize("educa_quest" , "root", "4236", {
     host: "localhost",
     dialect: "mysql"
-});*/
+});
 
-
+/*
 const sequelize = new Sequelize(
   "railway", // DB_NAME
   "root",    // DB_USER
@@ -16,6 +16,6 @@ const sequelize = new Sequelize(
     dialect: "mysql",
     logging: false,
   }
-);
+);*/
 
 export default sequelize;
