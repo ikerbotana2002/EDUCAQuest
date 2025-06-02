@@ -38,10 +38,6 @@ export const User = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        selectedSubjects: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         status: {
             type: DataTypes.INTEGER,
             allowNull: false
@@ -49,6 +45,5 @@ export const User = sequelize.define(
     },
     {
         tableName: 'users', // Asegúrate de que el nombre de la tabla sea correc
-        timestamps: false
     }
 )

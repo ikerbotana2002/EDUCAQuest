@@ -31,9 +31,9 @@ export const register = async (req: Request, res: Response): Promise<any> => {
             password: passwordHash,
             rol_id: rol_id,
             avatar: avatar,
-            status: 1,
             degree: 0,
-            selectedSubjects: ""
+            status: 1,
+
         });
 
         res.json({

@@ -35,9 +35,8 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             password: passwordHash,
             rol_id: rol_id,
             avatar: avatar,
-            status: 1,
             degree: 0,
-            selectedSubjects: ""
+            status: 1,
         });
         res.json({
             msg: `User ${name} ${lastname} create success...`
