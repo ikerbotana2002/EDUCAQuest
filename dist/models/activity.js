@@ -52,4 +52,7 @@ exports.Activity = connection_1.default.define('Activity', {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false
     }
+}, {
+    tableName: 'activities', // Asegúrate de que el nombre de la tabla sea correct
+    timestamps: false
 });

@@ -16,4 +16,7 @@ exports.Type_activity = connection_1.default.define('Type_activity', {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
     }
+}, {
+    tableName: 'type_activities', // Asegúrate de que el nombre de la tabla sea correcto
+    timestamps: false
 });

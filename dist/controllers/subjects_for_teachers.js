@@ -19,7 +19,6 @@ const getSubjectsForTeachers = (req, res) => __awaiter(void 0, void 0, void 0, f
 exports.getSubjectsForTeachers = getSubjectsForTeachers;
 const addSubjectsForTeachers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { selectedSubjects, email } = req.body;
-    console.log("📥 selectedSubjects recibido:", selectedSubjects);
     try {
         const user = yield user_1.User.findOne({ where: { email } });
         if (!user) {

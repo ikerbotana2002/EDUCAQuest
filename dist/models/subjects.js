@@ -20,4 +20,7 @@ exports.Subjects = connection_1.default.define('Subjects', {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false
     },
+}, {
+    tableName: 'subjects', // Asegúrate de que el nombre de la tabla sea correcto
+    timestamps: false
 });

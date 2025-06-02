@@ -36,4 +36,7 @@ exports.Process = connection_1.default.define('Process', {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false
     }
+}, {
+    tableName: 'processes', // Asegúrate de que el nombre de la tabla sea correcto
+    timestamps: false
 });

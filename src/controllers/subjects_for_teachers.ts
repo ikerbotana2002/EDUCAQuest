@@ -11,7 +11,6 @@ export const getSubjectsForTeachers = async (req: Request, res: Response) => {
 
 export const addSubjectsForTeachers = async (req: Request, res: Response): Promise<any> => {
     const { selectedSubjects, email } = req.body;
-    console.log("📥 selectedSubjects recibido:", selectedSubjects);
 
     try {
         const user = await User.findOne({ where: { email } });
@@ -58,5 +57,4 @@ export const addSubjectsForTeachers = async (req: Request, res: Response): Promi
         });
     }
 }
-
 

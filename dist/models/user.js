@@ -49,4 +49,7 @@ exports.User = connection_1.default.define('User', {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false
     }
+}, {
+    tableName: 'users', // Asegúrate de que el nombre de la tabla sea correc
+    timestamps: false
 });

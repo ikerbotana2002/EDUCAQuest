@@ -51,7 +51,7 @@ export const Activity = sequelize.define(
         }
     },
     {
-        tableName: 'activities', // Asegúrate de que el nombre de la tabla sea correcto
+        tableName: 'activities', // Asegúrate de que el nombre de la tabla sea correct
         timestamps: false
     }
 )
