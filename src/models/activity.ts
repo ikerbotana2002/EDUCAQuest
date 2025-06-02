@@ -49,5 +49,9 @@ export const Activity = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false
         }
+    },
+    {
+        tableName: 'activities', // Asegúrate de que el nombre de la tabla sea correcto
+        timestamps: false
     }
 )

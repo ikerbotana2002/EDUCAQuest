@@ -46,5 +46,9 @@ export const User = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false
         }
+    },
+    {
+        tableName: 'users', // Asegúrate de que el nombre de la tabla sea correc
+        timestamps: false
     }
 )

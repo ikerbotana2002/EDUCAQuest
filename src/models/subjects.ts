@@ -17,5 +17,9 @@ export const Subjects = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false
         }, 
+    },
+    {
+        tableName: 'subjects', // Asegúrate de que el nombre de la tabla sea correcto
+        timestamps: false
     }
 )
