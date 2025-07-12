@@ -37,6 +37,6 @@ exports.Process = connection_1.default.define('Process', {
         allowNull: false
     }
 }, {
-    tableName: 'processes', // Asegúrate de que el nombre de la tabla sea correcto
-    timestamps: false
+    tableName: 'processes', // Asegúrate de que el nombre de la tabla sea correct
+    timestamps: true
 });

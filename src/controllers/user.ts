@@ -239,14 +239,13 @@ export const resetPassword = async (req: Request, res: Response): Promise<any> =
         }*/
         console.log(password);
 
-        // Hashear nueva contraseña
+        // Hashear contraseña
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Actualizar la contraseña y eliminar el token
+        // Actualizar la contraseña
         user.password = hashedPassword;
-        //user.resetToken = null;
-        //user.resetTokenExpires = null;
-        console.log(user.password);
+
+        // Guardar el usuario actualizado
         await user.save();
 
         return res.json({ msg: 'Contraseña actualizada correctamente' });

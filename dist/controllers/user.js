@@ -195,13 +195,11 @@ const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             return res.status(401).json({ msg: 'Token inválido o expirado' });
         }*/
         console.log(password);
-        // Hashear nueva contraseña
+        // Hashear contraseña
         const hashedPassword = yield bcrypt_1.default.hash(password, 10);
-        // Actualizar la contraseña y eliminar el token
+        // Actualizar la contraseña
         user.password = hashedPassword;
-        //user.resetToken = null;
-        //user.resetTokenExpires = null;
-        console.log(user.password);
+        // Guardar el usuario actualizado
         yield user.save();
         return res.json({ msg: 'Contraseña actualizada correctamente' });
     }

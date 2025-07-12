@@ -1,12 +1,12 @@
 import { Sequelize } from "sequelize";
 
-/*
+
 const sequelize = new Sequelize("educa_quest" , "root", "4236", {
     host: "localhost",
     dialect: "mysql"
 });
-*/
 
+/*
 const sequelize = new Sequelize(
   "railway", // nombre de la base de datos
   "root",    // usuario
@@ -17,6 +17,6 @@ const sequelize = new Sequelize(
     dialect: "mysql",
     logging: false
   }
-);
+);*/
 
 export default sequelize;

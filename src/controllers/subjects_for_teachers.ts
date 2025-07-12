@@ -18,9 +18,15 @@ export const addSubjectsForTeachers = async (req: Request, res: Response): Promi
             return res.status(404).json({ msg: 'Usuario no encontrado' });
         }
 
-        const results = [];
         const teacherId = user.get('id');
 
+        // 1. Eliminar todas las asignaciones anteriores del profesor
+        await SubjectsForTeachers.destroy({
+            where: { id_teacher: teacherId }
+        });
+
+        // 2. Crear nuevas asignaciones
+        const results = [];
         for (const subject of selectedSubjects) {
             const subjectId = typeof subject === 'object' ? subject.id : subject;
 
@@ -29,24 +35,12 @@ export const addSubjectsForTeachers = async (req: Request, res: Response): Promi
                 continue;
             }
 
-            const exists = await SubjectsForTeachers.findOne({
-                where: {
-                    id_teacher: teacherId,
-                    id_subject: subjectId
-                }
+            const newEntry = await SubjectsForTeachers.create({
+                id_teacher: teacherId,
+                id_subject: subjectId
             });
-
-            if (!exists) {
-                const newEntry = await SubjectsForTeachers.create({
-                    id_teacher: teacherId,
-                    id_subject: subjectId
-                });
-                results.push(newEntry);
-            } else {
-                console.log(`Relación ya existente: ${subjectId}`);
-            }
+            results.push(newEntry);
         }
-
 
         res.status(201).json(results);
 

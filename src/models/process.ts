@@ -35,7 +35,7 @@ export const Process = sequelize.define(
         }
     },
     {
-        tableName: 'processes', // Asegúrate de que el nombre de la tabla sea correcto
-        timestamps: false
+        tableName: 'processes', // Asegúrate de que el nombre de la tabla sea correct
+        timestamps: true
     }
 )
