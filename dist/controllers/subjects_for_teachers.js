@@ -24,6 +24,10 @@ const addSubjectsForTeachers = (req, res) => __awaiter(void 0, void 0, void 0, f
         if (!user) {
             return res.status(404).json({ msg: 'Usuario no encontrado' });
         }
+        if (user.get('rol_id') != 2) {
+            // Opcional: devolver 403 Forbidden o simplemente un json vacío
+            return res.status(403).json({ msg: 'No autorizado: solo profesores pueden añadir asignaturas' });
+        }
         const teacherId = user.get('id');
         // 1. Eliminar todas las asignaciones anteriores del profesor
         yield subjects_for_teachers_1.SubjectsForTeachers.destroy({
