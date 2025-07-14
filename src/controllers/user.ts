@@ -176,7 +176,7 @@ export const forgotPassword = async (req: Request, res: Response): Promise<any> 
             });
 
         // URL de recuperación (frontend)
-        const resetLink = `http://localhost:4200/reset-password?token=${token}`; // cámbialo a tu URL real
+        const resetLink = `https://usal-educaquest.onrender.com/reset-password?token=${token}`;
 
         // Configurar transportador
         const transporter = nodemailer.createTransport({
