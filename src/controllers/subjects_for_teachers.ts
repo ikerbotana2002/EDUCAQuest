@@ -25,7 +25,7 @@ export const addSubjectsForTeachers = async (req: Request, res: Response): Promi
 
         const teacherId = user.get('id');
 
-        // 1. Eliminar todas las asignaciones anteriores del profesor
+        // 1. Eliminar todas las asignaciones anteriores del profesorr
         await SubjectsForTeachers.destroy({
             where: { id_teacher: teacherId }
         });

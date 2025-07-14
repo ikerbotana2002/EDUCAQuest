@@ -29,7 +29,7 @@ const addSubjectsForTeachers = (req, res) => __awaiter(void 0, void 0, void 0, f
             return res.status(403).json({ msg: 'No autorizado: solo profesores pueden añadir asignaturas' });
         }
         const teacherId = user.get('id');
-        // 1. Eliminar todas las asignaciones anteriores del profesor
+        // 1. Eliminar todas las asignaciones anteriores del profesorr
         yield subjects_for_teachers_1.SubjectsForTeachers.destroy({
             where: { id_teacher: teacherId }
         });
