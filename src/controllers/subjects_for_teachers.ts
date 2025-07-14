@@ -18,7 +18,7 @@ export const addSubjectsForTeachers = async (req: Request, res: Response): Promi
             return res.status(404).json({ msg: 'Usuario no encontrado' });
         }
 
-        if (user.get('rol_id') != 2) {
+        if (user.get('rol_id') != 1) {
             // Opcional: devolver 403 Forbidden o simplemente un json vacío
             return res.status(403).json({ msg: 'No autorizado: solo profesores pueden añadir asignaturas' });
         }
