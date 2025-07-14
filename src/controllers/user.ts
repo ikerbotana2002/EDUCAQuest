@@ -168,7 +168,7 @@ export const forgotPassword = async (req: Request, res: Response): Promise<any> 
             return res.status(400).json({ msg: `Usuario con email ${email} no encontrado` });
         }
 
-        // Generar token JWT de recuperación
+        // Generar token JWT de recuperació
         const token = jwt.sign({ email: email },
             process.env.SECRET_KEY || "4GaM[3s{8R}WF}D",
             {
@@ -239,7 +239,7 @@ export const resetPassword = async (req: Request, res: Response): Promise<any> =
         }*/
         console.log(password);
 
-        // Hashear contraseña
+        // Hashear contraseñaF
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Actualizar la contraseña

@@ -138,12 +138,12 @@ const forgotPassword = (req, res) => __awaiter(void 0, void 0, void 0, function*
         if (!user) {
             return res.status(400).json({ msg: `Usuario con email ${email} no encontrado` });
         }
-        // Generar token JWT de recuperación
+        // Generar token JWT de recuperació
         const token = jsonwebtoken_1.default.sign({ email: email }, process.env.SECRET_KEY || "4GaM[3s{8R}WF}D", {
             expiresIn: "1h"
         });
         // URL de recuperación (frontend)
-        const resetLink = `http://localhost:4200/reset-password?token=${token}`; // cámbialo a tu URL real
+        const resetLink = `https://usal-educaquest.onrender.com/reset-password?token=${token}`;
         // Configurar transportador
         const transporter = nodemailer_1.default.createTransport({
             service: 'Gmail',
@@ -195,7 +195,7 @@ const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             return res.status(401).json({ msg: 'Token inválido o expirado' });
         }*/
         console.log(password);
-        // Hashear contraseña
+        // Hashear contraseñaF
         const hashedPassword = yield bcrypt_1.default.hash(password, 10);
         // Actualizar la contraseña
         user.password = hashedPassword;
